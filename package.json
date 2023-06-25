@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "dev": "cd web && next dev -p 3001",
+    "dev": "cd web && next dev",
     "build": "cd web && next build",
     "start": "cd web && next start",
     "lint": "cd web && next lint",
