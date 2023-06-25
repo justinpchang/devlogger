@@ -11,6 +11,9 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     # TODO: Update this to allow requests from frontend app's domain.
     origins '*'
 
-    resource '*', headers: :any, methods: %i[get post put patch delete options head]
+    resource '*',
+             headers: :any,
+             methods: %i[get post put patch delete options head],
+             expose: ['Authorization']
   end
 end
