@@ -1,0 +1,38 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+
+# Ignore RVM-only files
+/.ruby-gemset
+
+# Ignore development uploads
+/public/uploads/*
+
+# Ignore local ENV config variables
+.env
+
+.powenv
+
+.DS_Store
+
+/public/packs
+/public/packs-test
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+package-lock.json
+
+.byebug_history
+
+latest.dump
+dump.rdb
+
+db/migrate
+db/schema.rb
+
+config/environments
+vendor
+app/assets

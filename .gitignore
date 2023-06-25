@@ -30,3 +30,20 @@
 
 # Sorbet
 sorbet/rbi/hidden-definitions/errors.txt
+
+node_modules
+
+# Yarn
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+/.yarn/releases/** binary
+/.yarn/plugins/** binary

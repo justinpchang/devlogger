@@ -1,0 +1,13 @@
+{
+  "printWidth": 100,
+  "overrides": [
+    {
+      "files": ["*.rb", "*.haml"],
+      "options": {
+        "printWidth": 100,
+        "trailingComma": "es5",
+        "rubyPlugins": "plugin/single_quotes,plugin/trailing_comma"
+      }
+    }
+  ]
+}

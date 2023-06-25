@@ -45,6 +45,12 @@ group :development, :test do
 end
 
 group :development do
+  # Formatting
+  gem "syntax_tree-haml", require: false
+  gem "syntax_tree-rbs", require: false
+  gem "syntax_tree", '~> 6', require: false
+  gem "prettier_print", require: false
+
   # Linting
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
