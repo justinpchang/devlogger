@@ -1,0 +1,8 @@
+{
+  "Rubocop Enable/Disable Rule": {
+    "scope": "ruby",
+    "prefix": "rubocop:disable",
+    "body": ["# rubocop:disable ${1:$CLIPBOARD}", "$2", "# rubocop:enable ${1:CLIPBOARD}"],
+    "description": "Temporarily disables a Rubocop rule and then enables it again. Works best when you copy the rule you want to disable right before."
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "File Template: RSpec": {
+    "scope": "ruby",
+    "prefix": "ft:spec",
+    "body": [
+      "# typed: true",
+      "# frozen_string_literal: true",
+      "RSpec.describe($1) do",
+      "  T.bind(self, T.untyped)",
+      "  ",
+      "  $2",
+      "end",
+      ""
+    ],
+    "description": "File Template: RSpec"
+  }
+}

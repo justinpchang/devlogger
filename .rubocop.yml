@@ -1,0 +1,122 @@
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+# Don't clash with Prettier
+inherit_from:
+  - node_modules/@prettier/plugin-ruby/rubocop.yml
+
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 3.2.0
+  DisplayCopNames: true
+  NewCops: enable
+  Exclude:
+    - "db/schema.rb"
+    - "Gemfile"
+    - "lib/tasks/*.rake"
+    - "db/migrate/**/*"
+    - "bin/*"
+    - "vendor/**/*"
+    - "config/puma.rb"
+    - "config/spring.rb"
+    - "config/environments/*"
+    - "node_modules/**/*"
+    - "spec/spec_helper.rb"
+    - "db/migrate/*.rb"
+    - "sorbet/**/*.rbi"
+
+# STYLE
+
+Style/NegatedIf:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassMethodsDefinitions:
+  Enabled: false
+
+Style/MethodCallWithArgsParentheses:
+  AllowedMethods:
+    - "puts"
+    - "render"
+    - "to"
+  AllowParenthesesInMultilineCall: true
+  Enabled: false
+
+Style/OptionalBooleanParameter:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+# LINT
+
+Lint/MissingSuper:
+  Enabled: false
+
+# METRICS
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Naming/MethodParameterName:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+# RAILS
+
+Rails/HttpStatus:
+  Enabled: false
+
+Rails/FindById:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+# RSPEC
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/BeforeAfterAll:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MessageSpies:
+  Enabled: false
+
+Rails/Blank:
+  Enabled: false

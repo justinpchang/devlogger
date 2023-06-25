@@ -1,0 +1,51 @@
+{
+  "typescript.validate.enable": true,
+  "javascript.format.enable": false,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "ruby.useBundler": true,
+  "ruby.useLanguageServer": false,
+  "ruby.lint": {
+    "rubocop": {
+      "useBundler": true,
+      "lint": true
+    }
+  },
+  "ruby.format": "rubocop",
+  "openInGitHub.defaultBranch": "development",
+  "openInGitHub.defaultRemote": "origin",
+  "sorbet.enabled": true,
+  "sorbet.lspConfigs": [
+    {
+      "id": "stable",
+      "name": "Sorbet",
+      "description": "Stable Sorbet Ruby IDE features",
+      "cwd": "${workspaceFolder}",
+      "command": ["bundle", "exec", "srb", "typecheck", "--lsp", "--disable-watchman"]
+    }
+  ],
+  "rubyLsp.rubyVersionManager": "rbenv",
+  "rubyLsp.enabledFeatures": {
+    "codeActions": true,
+    "diagnostics": true,
+    "documentHighlights": true,
+    "documentLink": true,
+    "documentSymbols": true,
+    "foldingRanges": true,
+    "formatting": true,
+    "hover": true,
+    "inlayHint": true,
+    "onTypeFormatting": true,
+    "selectionRanges": true,
+    "semanticHighlighting": true
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python"
+  },
+  "[sql]": {
+    "editor.defaultFormatter": "adpyke.vscode-sql-formatter"
+  }
+}
