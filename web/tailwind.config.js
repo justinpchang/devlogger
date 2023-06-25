@@ -12,7 +12,14 @@ module.exports = {
       lg: "976px",
       xl: "1440px",
     },
-    extend: {},
+    extend: {
+      colors: {
+        mulberry: {
+          500: "#C74892",
+          600: "#C60F7B",
+        },
+      },
+    },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };
