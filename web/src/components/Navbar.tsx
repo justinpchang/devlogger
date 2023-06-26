@@ -13,7 +13,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar() {
+function Navbar() {
   const { data: currentUser } = useCurrentUser();
 
   const queryClient = useQueryClient();
@@ -231,3 +231,5 @@ export default function Navbar() {
     </Disclosure>
   );
 }
+
+export { Navbar };

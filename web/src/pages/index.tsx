@@ -1,5 +1,5 @@
 import { Container } from "@/components/Container";
-import Navbar from "@/components/Navbar";
+import { Navbar } from "@/components/Navbar";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { authService } from "@/services/AuthService";
 import Link from "next/link";
