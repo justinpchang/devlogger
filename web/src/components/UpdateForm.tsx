@@ -4,12 +4,12 @@ import Combobox, { ComboboxOption } from "./Combobox";
 import { useState } from "react";
 
 function UpdateForm() {
-  const [project, setProject] = useState<ComboboxOption | null>(null);
   const projectOptions = [
     { id: "project 1", name: "Project 1" },
     { id: "project 2", name: "Project 2 with a really long nmae" },
     { id: "project 3", name: "Project 3" },
   ];
+  const [project, setProject] = useState<ComboboxOption | null>(projectOptions[0]);
   return (
     <form action="#" className="relative">
       <div className="flex flex-col h-60 overflow-hidden rounded-lg border border-gray-300 shadow-sm focus-within:border-mulberry-500 focus-within:ring-1 focus-within:ring-mulberry-500">
