@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
-import { ApiService, apiService } from "./ApiService";
+import { ApiService, JWT_COOKIE_NAME, apiService } from "./ApiService";
+import Cookies from "js-cookie";
 
 export class AuthService {
   protected readonly authApiService: ApiService;
@@ -16,7 +17,7 @@ export class AuthService {
         password,
       },
     });
-    this.authenticate(response);
+    this.setJWT(response);
   };
 
   public login = async ({ email, password }: { email: string; password: string }) => {
@@ -26,19 +27,21 @@ export class AuthService {
         password,
       },
     });
-    this.authenticate(response);
+    this.setJWT(response);
   };
 
   public logout = async () => {
     await this.authApiService.instance.delete("/users/sign_out");
-    apiService.removeJWT();
-    this.authApiService.removeJWT();
+    this.clearJWT();
   };
 
-  private authenticate = (response: AxiosResponse) => {
+  private setJWT = (response: AxiosResponse) => {
     const jwt = response.headers["authorization"];
-    apiService.setJWT(jwt);
-    this.authApiService.setJWT(jwt);
+    Cookies.set(JWT_COOKIE_NAME, jwt);
+  };
+
+  private clearJWT = () => {
+    Cookies.remove(JWT_COOKIE_NAME);
   };
 }
 

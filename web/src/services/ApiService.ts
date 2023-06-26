@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import Cookies from "js-cookie";
 
-const JWT_COOKIE_NAME = "jwt";
+export const JWT_COOKIE_NAME = "jwt";
 
 export class ApiService {
   public readonly instance: AxiosInstance;
@@ -12,23 +12,26 @@ export class ApiService {
       timeout: 30000,
       timeoutErrorMessage: "Request timed out",
       headers: {
-        Authorization: Cookies.get(JWT_COOKIE_NAME),
+        Authorization: this.getJWT(),
       },
     });
+
+    this.instance.interceptors.request.use(
+      (config) => {
+        const jwt = this.getJWT();
+        if (jwt) {
+          config.headers["Authorization"] = jwt;
+        }
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
   }
 
   public getJWT = () => {
     return Cookies.get(JWT_COOKIE_NAME);
-  };
-
-  public setJWT = (jwt: string) => {
-    Cookies.set(JWT_COOKIE_NAME, jwt);
-    this.instance.defaults.headers.common["Authorization"] = jwt;
-  };
-
-  public removeJWT = () => {
-    Cookies.remove(JWT_COOKIE_NAME);
-    this.instance.defaults.headers.common["Authorization"] = null;
   };
 }
 

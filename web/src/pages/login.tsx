@@ -19,7 +19,7 @@ export default function Login() {
     {
       onSuccess: () => {
         toast.success("Signed in successfully");
-        queryClient.invalidateQueries({ queryKey: CURRENT_USER_QUERY_KEY });
+        queryClient.invalidateQueries({ queryKey: [CURRENT_USER_QUERY_KEY] });
         router.push("/");
       },
       onError: () => {
