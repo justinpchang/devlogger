@@ -1,21 +1,37 @@
 import { PaperClipIcon } from "@heroicons/react/20/solid";
 import { Tiptap } from "./Tiptap";
+import Combobox, { ComboboxOption } from "./Combobox";
+import { useState } from "react";
 
 function UpdateForm() {
+  const [project, setProject] = useState<ComboboxOption | null>(null);
+  const projectOptions = [
+    { id: "project 1", name: "Project 1" },
+    { id: "project 2", name: "Project 2 with a really long nmae" },
+    { id: "project 3", name: "Project 3" },
+  ];
   return (
     <form action="#" className="relative">
       <div className="flex flex-col h-60 overflow-hidden rounded-lg border border-gray-300 shadow-sm focus-within:border-mulberry-500 focus-within:ring-1 focus-within:ring-mulberry-500">
-        <label htmlFor="title" className="sr-only">
-          Title
-        </label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          placeholder="Title"
-          autoComplete="off"
-          className="block w-full border-0 pt-2.5 text-lg font-medium placeholder:text-gray-400 focus:ring-0"
-        />
+        <div className="flex items-center">
+          <label htmlFor="title" className="sr-only">
+            Title
+          </label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Title"
+            autoComplete="off"
+            className="block w-full border-0 pt-2.5 text-lg font-medium placeholder:text-gray-400 focus:ring-0"
+          />
+          <Combobox
+            value={project}
+            setValue={setProject}
+            options={projectOptions}
+            className="flex-shrink-0 pr-1.5 w-50"
+          />
+        </div>
         <label htmlFor="description" className="sr-only">
           Description
         </label>
@@ -44,7 +60,7 @@ function UpdateForm() {
                 className="-ml-1 mr-2 h-5 w-5 group-hover:text-gray-500"
                 aria-hidden="true"
               />
-              <span className="text-sm italic text-gray-500 group-hover:text-gray-600">
+              <span className="text-xs italic text-gray-500 group-hover:text-gray-600">
                 Attach an image (Coming soon!)
               </span>
             </button>
