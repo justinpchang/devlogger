@@ -1,24 +1,16 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
-import Cookies from "js-cookie";
+import { AxiosResponse } from "axios";
+import { ApiService, apiService } from "./ApiService";
 
 export class AuthService {
-  protected readonly instance: AxiosInstance;
+  protected readonly authApiService: ApiService;
 
-  public constructor(url: string) {
-    this.instance = axios.create({
-      baseURL: url,
-      timeout: 30000,
-      timeoutErrorMessage: "Request timed out",
-      headers: {
-        Authorization: Cookies.get("jwt"),
-      },
-    });
+  public constructor() {
+    // TODO: Update with environment variable
+    this.authApiService = new ApiService("http://localhost:3000");
   }
 
-  public isLoggedIn = () => !!Cookies.get("jwt");
-
   public signup = async ({ email, password }: { email: string; password: string }) => {
-    const response = await this.instance.post("/users", {
+    const response = await this.authApiService.instance.post("/users", {
       user: {
         email,
         password,
@@ -28,7 +20,7 @@ export class AuthService {
   };
 
   public login = async ({ email, password }: { email: string; password: string }) => {
-    const response = await this.instance.post("/users/sign_in", {
+    const response = await this.authApiService.instance.post("/users/sign_in", {
       user: {
         email,
         password,
@@ -38,17 +30,16 @@ export class AuthService {
   };
 
   public logout = async () => {
-    await this.instance.delete("/users/sign_out");
-    Cookies.remove("jwt");
-    this.instance.defaults.headers.common["Authorization"] = null;
+    await this.authApiService.instance.delete("/users/sign_out");
+    apiService.removeJWT();
+    this.authApiService.removeJWT();
   };
 
   private authenticate = (response: AxiosResponse) => {
     const jwt = response.headers["authorization"];
-    Cookies.set("jwt", jwt);
-    this.instance.defaults.headers.common["Authorization"] = jwt;
+    apiService.setJWT(jwt);
+    this.authApiService.setJWT(jwt);
   };
 }
 
-// TODO: Update with environment variable
-export const authService = new AuthService("http://localhost:3000");
+export const authService = new AuthService();

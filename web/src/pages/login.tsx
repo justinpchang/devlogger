@@ -1,22 +1,39 @@
 import { Container } from "@/components/Container";
+import { CURRENT_USER_QUERY_KEY } from "@/hooks/useCurrentUser";
 import { authService } from "@/services/AuthService";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
+import toast from "react-hot-toast";
+import { useMutation, useQueryClient } from "react-query";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const queryClient = useQueryClient();
   const router = useRouter();
+
+  const { mutate: login, isLoading } = useMutation(
+    (data: { email: string; password: string }) => authService.login(data),
+    {
+      onSuccess: () => {
+        toast.success("Signed in successfully");
+        queryClient.invalidateQueries({ queryKey: CURRENT_USER_QUERY_KEY });
+        router.push("/");
+      },
+      onError: () => {
+        toast.error("Something went wrong. Please try again");
+      },
+    }
+  );
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    authService.login({
+    login({
       email,
       password,
     });
-    router.push("/");
   };
 
   const isValid = email !== "" && password.length >= 8;
@@ -81,10 +98,10 @@ export default function Login() {
             <div>
               <button
                 type="submit"
-                disabled={!isValid}
+                disabled={isLoading || !isValid}
                 className="flex w-full justify-center rounded-md bg-mulberry-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-mulberry-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mulberry-600 disabled:pointer-events-none disabled:opacity-50"
               >
-                Sign in
+                {isLoading ? "Signing in..." : "Sign in"}
               </button>
             </div>
           </form>
