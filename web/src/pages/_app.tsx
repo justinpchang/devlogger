@@ -1,7 +1,8 @@
+import "@/styles/globals.css";
+import "@/styles/tiptap.scss";
+
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
-
-import "@/styles/globals.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Toaster } from "react-hot-toast";
