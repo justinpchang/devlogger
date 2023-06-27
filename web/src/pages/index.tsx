@@ -1,6 +1,6 @@
-import Combobox from "@/components/Combobox";
 import { Container } from "@/components/Container";
 import { Navbar } from "@/components/Navbar";
+import { ProjectForm } from "@/components/ProjectForm";
 import { UpdateForm } from "@/components/UpdateForm";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 
@@ -13,6 +13,8 @@ export default function Home() {
       <Container>
         <pre>{JSON.stringify(currentUser?.email)}</pre>
         <UpdateForm />
+        <div className="mt-20" />
+        <ProjectForm />
       </Container>
     </>
   );
