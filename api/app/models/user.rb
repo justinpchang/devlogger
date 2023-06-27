@@ -35,4 +35,6 @@ class User < ApplicationRecord
          :validatable,
          :trackable,
          jwt_revocation_strategy: JwtDenylist
+
+  has_many :projects, dependent: :destroy
 end

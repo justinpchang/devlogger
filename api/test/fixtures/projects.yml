@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-# typed: true
-
 # == Schema Information
 #
 # Table name: projects
@@ -24,9 +21,15 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class Project < ApplicationRecord
-  belongs_to :user
 
-  validates :name, presence: true, uniqueness: true
-  validates :slug, presence: true, uniqueness: true
-end
+one:
+  name: MyString
+  homepage: MyString
+  description: MyString
+  user: one
+
+two:
+  name: MyString
+  homepage: MyString
+  description: MyString
+  user: two

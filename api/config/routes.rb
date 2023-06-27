@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users do
         get 'me', on: :collection
+        resources :projects, shallow: true
       end
     end
   end

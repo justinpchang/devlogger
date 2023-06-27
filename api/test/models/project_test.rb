@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-# typed: true
-
 # == Schema Information
 #
 # Table name: projects
@@ -24,9 +21,10 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class Project < ApplicationRecord
-  belongs_to :user
+require "test_helper"
 
-  validates :name, presence: true, uniqueness: true
-  validates :slug, presence: true, uniqueness: true
+class ProjectTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end
