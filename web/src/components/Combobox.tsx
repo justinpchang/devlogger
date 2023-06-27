@@ -3,7 +3,7 @@ import { CheckIcon, ChevronUpDownIcon, FolderIcon } from "@heroicons/react/20/so
 import { Combobox as _Combobox } from "@headlessui/react";
 
 export interface ComboboxOption {
-  id: string;
+  id: string | number;
   name: string;
 }
 

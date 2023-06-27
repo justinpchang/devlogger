@@ -1,15 +1,31 @@
 import { PaperClipIcon } from "@heroicons/react/20/solid";
 import { Tiptap } from "./Tiptap";
 import Combobox, { ComboboxOption } from "./Combobox";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useGetProjects } from "@/hooks/useGetProjects";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 function UpdateForm() {
-  const projectOptions = [
-    { id: "project 1", name: "Project 1" },
-    { id: "project 2", name: "Project 2 with a really long nmae" },
-    { id: "project 3", name: "Project 3" },
-  ];
-  const [project, setProject] = useState<ComboboxOption | null>(projectOptions[0]);
+  const [project, setProject] = useState<ComboboxOption | null>(null);
+
+  const { data: currentUser } = useCurrentUser();
+  const { data: projects } = useGetProjects(currentUser?.id);
+
+  const projectOptions = useMemo(() => {
+    console.log("processing project options");
+    const options = projects?.map((project) => ({
+      id: project.id,
+      name: project.name,
+    }));
+    if (options?.length) {
+      setProject((project) => {
+        if (!project) return options[0];
+        return null;
+      });
+    }
+    return options ?? [];
+  }, [projects]);
+
   return (
     <form action="#" className="relative">
       <div className="flex flex-col h-60 overflow-hidden rounded-lg border border-gray-300 shadow-sm focus-within:border-mulberry-500 focus-within:ring-1 focus-within:ring-mulberry-500">
