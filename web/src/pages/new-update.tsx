@@ -1,15 +1,15 @@
 import { Container } from "@/components/Container";
 import { Navbar } from "@/components/Navbar";
-import { ProjectForm } from "@/components/ProjectForm";
+import { UpdateForm } from "@/components/UpdateForm";
 
-export default function New() {
+export default function NewUpdate() {
   // TODO: Add authentication
 
   return (
     <>
       <Navbar />
       <Container>
-        <ProjectForm />
+        <UpdateForm />
       </Container>
     </>
   );
