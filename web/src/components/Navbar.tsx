@@ -15,7 +15,6 @@ function classNames(...classes: string[]) {
 
 function Navbar() {
   const { data: currentUser } = useCurrentUser();
-
   const queryClient = useQueryClient();
   const router = useRouter();
 

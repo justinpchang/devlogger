@@ -12,9 +12,6 @@ export default function Home() {
       <Navbar />
       <Container>
         <pre>{JSON.stringify(currentUser?.email)}</pre>
-        <UpdateForm />
-        <div className="mt-20" />
-        <ProjectForm />
       </Container>
     </>
   );
