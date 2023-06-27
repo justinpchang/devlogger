@@ -4,10 +4,11 @@ import Placeholder from "@tiptap/extension-placeholder";
 import React from "react";
 
 interface Props {
+  setContent: (content: string) => void;
   className?: string;
 }
 
-function Tiptap({ className }: Props) {
+function Tiptap({ className, setContent }: Props) {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -23,6 +24,9 @@ function Tiptap({ className }: Props) {
       },
     },
     content: ``,
+    onUpdate({ editor }) {
+      setContent(editor.getHTML());
+    },
   });
 
   return (

@@ -4,15 +4,18 @@ import Combobox, { ComboboxOption } from "./Combobox";
 import { useMemo, useState } from "react";
 import { useGetProjects } from "@/hooks/useGetProjects";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useCreateUpdate } from "@/hooks/useCreateUpdate";
 
 function UpdateForm() {
   const [project, setProject] = useState<ComboboxOption | null>(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   const { data: currentUser } = useCurrentUser();
   const { data: projects } = useGetProjects(currentUser?.id);
+  const { mutate: createUpdate, isLoading: isSubmitting } = useCreateUpdate();
 
   const projectOptions = useMemo(() => {
-    console.log("processing project options");
     const options = projects?.map((project) => ({
       id: project.id,
       name: project.name,
@@ -26,8 +29,19 @@ function UpdateForm() {
     return options ?? [];
   }, [projects]);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    createUpdate({
+      project_id: project!.id as number,
+      title,
+      description,
+    });
+  };
+
+  const isValid = title && description && project;
+
   return (
-    <form action="#" className="relative">
+    <form action="#" className="relative" onSubmit={handleSubmit}>
       <div className="flex flex-col h-60 overflow-hidden rounded-lg border border-gray-300 shadow-sm focus-within:border-mulberry-500 focus-within:ring-1 focus-within:ring-mulberry-500">
         <div className="flex items-center">
           <label htmlFor="title" className="sr-only">
@@ -39,6 +53,8 @@ function UpdateForm() {
             id="title"
             placeholder="Title"
             autoComplete="off"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             className="block w-full border-0 pt-2.5 text-lg font-medium placeholder:text-gray-400 focus:ring-0"
           />
           <Combobox
@@ -52,7 +68,10 @@ function UpdateForm() {
           Description
         </label>
         <div className="flex-grow overflow-auto">
-          <Tiptap className="block w-full border-0 py-0 text-gray-900 px-3 placeholder:text-gray-400 focus:ring-0" />
+          <Tiptap
+            setContent={setDescription}
+            className="block w-full border-0 py-0 text-gray-900 px-3 placeholder:text-gray-400 focus:ring-0"
+          />
         </div>
 
         {/* Spacer element to match the height of the toolbar */}
@@ -84,7 +103,8 @@ function UpdateForm() {
           <div className="flex-shrink-0">
             <button
               type="submit"
-              className="inline-flex items-center rounded-md bg-mulberry-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-mulberry-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mulberry-600"
+              disabled={!isValid || isSubmitting}
+              className="inline-flex items-center rounded-md bg-mulberry-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-mulberry-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mulberry-600 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Post
             </button>
