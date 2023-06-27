@@ -3,7 +3,7 @@ import parameterize from "parameterize";
 import { useRouter } from "next/router";
 
 function ProjectForm() {
-  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [homepage, setHomepage] = useState("");
   const [description, setDescription] = useState("");
@@ -12,11 +12,11 @@ function ProjectForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({ title, url, homepage, description });
+    console.log({ name, url, homepage, description });
   };
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
     setUrl(parameterize(e.target.value));
   };
 
@@ -41,21 +41,21 @@ function ProjectForm() {
           <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-4">
               <label
-                htmlFor="project-title"
+                htmlFor="project-name"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Project title *
+                Project name *
               </label>
               <div className="mt-2">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-mulberry-600 sm:max-w-md">
                   <input
                     type="text"
-                    name="project-title"
-                    id="project-title"
+                    name="project-name"
+                    id="project-name"
                     autoComplete="off"
                     placeholder="My Cool Project"
-                    value={title}
-                    onChange={handleTitleChange}
+                    value={name}
+                    onChange={handleNameChange}
                     className="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -69,7 +69,7 @@ function ProjectForm() {
                 htmlFor="project-title"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Project URL *
+                Project URL
               </label>
               <div className="mt-2">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-mulberry-600 sm:max-w-md">
@@ -83,8 +83,7 @@ function ProjectForm() {
                     autoComplete="off"
                     placeholder="my-cool-project"
                     value={url}
-                    onChange={handleUrlChange}
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    className="pointer-events-none block flex-1 border-0 bg-transparent py-1.5 pl-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
