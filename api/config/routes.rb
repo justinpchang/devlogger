@@ -13,7 +13,9 @@ Rails.application.routes.draw do
         get 'me', on: :collection
         resources :projects, only: [:index]
       end
-      resources :projects, only: [:create]
+      resources :projects, only: [:create] do
+        resources :updates, only: [:create]
+      end
     end
   end
 end
