@@ -1,6 +1,5 @@
 import { Container } from "@/components/Container";
 import { Navbar } from "@/components/Navbar";
-import { ProjectForm } from "@/components/ProjectForm";
 import { UpdateForm } from "@/components/UpdateForm";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 
@@ -11,6 +10,9 @@ export default function Home() {
     <>
       <Navbar />
       <Container>
+        <div className="m-10">
+          <UpdateForm />
+        </div>
         <pre>{JSON.stringify(currentUser?.email)}</pre>
       </Container>
     </>
