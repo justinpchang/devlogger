@@ -25,10 +25,10 @@ function ProjectForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="my-12">
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-8">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">Create a new project</h2>
+          <h2 className="text-2xl font-semibold leading-7 text-gray-900">Create a new project</h2>
           <p className="mt-1 text-sm leading-6 text-gray-600">
             A project is a collection of updates that you share with the world.
           </p>
