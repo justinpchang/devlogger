@@ -4,6 +4,7 @@ import { UpdateForm } from "@/components/UpdateForm";
 
 export default function NewUpdate() {
   // TODO: Add authentication
+  // TODO: Update to alternate style more fit for single page
 
   return (
     <>
