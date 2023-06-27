@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/requests/user.reqeusts";
+import { getCurrentUser } from "@/requests/user.requests";
 import { apiService } from "@/services/ApiService";
 import { useQuery } from "react-query";
 

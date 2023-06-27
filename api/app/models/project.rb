@@ -27,6 +27,7 @@
 class Project < ApplicationRecord
   belongs_to :user
 
+  validates :user_id, presence: true
   validates :name, presence: true, uniqueness: true
   validates :slug, presence: true, uniqueness: true
 end
