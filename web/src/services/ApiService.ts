@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosError, AxiosInstance } from "axios";
 import Cookies from "js-cookie";
 
 export const JWT_COOKIE_NAME = "jwt";
@@ -25,6 +25,19 @@ export class ApiService {
         return config;
       },
       (error) => {
+        return Promise.reject(error);
+      }
+    );
+
+    this.instance.interceptors.response.use(
+      (config) => config,
+      (error) => {
+        if (
+          error.response?.status === 401 &&
+          error.response.data.message === "User is not signed in"
+        ) {
+          Cookies.remove(JWT_COOKIE_NAME);
+        }
         return Promise.reject(error);
       }
     );
