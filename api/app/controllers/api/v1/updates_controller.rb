@@ -9,6 +9,10 @@ module Api
       before_action :verify_project_owner!, only: %i[create]
       before_action :authenticate_user!, only: %i[create]
 
+      def index
+        @updates = Update.includes(project: :user).all.order(created_at: :desc)
+      end
+
       def create
         update = @project.updates.create!(title: params[:title], description: params[:description])
         render json: { update: update }

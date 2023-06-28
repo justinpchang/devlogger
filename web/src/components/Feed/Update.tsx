@@ -8,7 +8,7 @@ interface Props {
 function Update({ update }: Props) {
   return (
     <div className="w-full">
-      <div className="mt-[0.6rem] ml-1 flex gap-x-1">
+      <div className="mt-[0.65rem] ml-1 flex gap-x-1">
         <div className="py-0.5 text-xs leading-5 text-gray-500">
           <span className="font-medium text-gray-900">{update.user.username}</span> posted an update
         </div>
@@ -27,7 +27,10 @@ function Update({ update }: Props) {
           {update.project.name}
         </h2>
         <h1 className="text-md text-gray-900 leading-6">{update.title}</h1>
-        <p className="text-sm leading-6 text-gray-500 text-justify">{update.description}</p>
+        <div
+          dangerouslySetInnerHTML={{ __html: update.description }}
+          className="ProseMirror text-sm leading-6 text-gray-500 text-justify"
+        />
       </div>
     </div>
   );

@@ -108,7 +108,7 @@ function Navbar() {
                       <div>
                         <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-mulberry-500 focus:ring-offset-2">
                           <span className="sr-only">Open user menu</span>
-                          <GradientAvatar name={currentUser.username!} />
+                          <GradientAvatar name={currentUser.username!} size={30} />
                         </Menu.Button>
                       </div>
                       <Transition

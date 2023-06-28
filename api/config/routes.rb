@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       resources :projects, only: [:create] do
         resources :updates, only: [:create]
       end
+      resources :updates, only: [:index]
     end
   end
 end

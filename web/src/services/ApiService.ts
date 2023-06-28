@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance } from "axios";
+import axios, { AxiosInstance } from "axios";
 import Cookies from "js-cookie";
 
 export const JWT_COOKIE_NAME = "jwt";
@@ -13,6 +13,8 @@ export class ApiService {
       timeoutErrorMessage: "Request timed out",
       headers: {
         Authorization: this.getJWT(),
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
     });
 
