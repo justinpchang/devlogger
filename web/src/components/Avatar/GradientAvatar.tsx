@@ -3,6 +3,8 @@ import fontColorContrast from "font-color-contrast";
 
 interface Props {
   name: string;
+  size: number;
+  classNames?: string;
 }
 
 const colorHash = new ColorHash({ saturation: 1.0 });
@@ -33,14 +35,13 @@ function blendColors(c1: string, c2: string) {
   return "#" + r + g + b;
 }
 
-function GradientAvatar({ name }: Props) {
-  const size = 40;
+function GradientAvatar({ name, size, classNames }: Props) {
   const [c1, c2] = generateColors(name);
   const midpoint = blendColors(c1, c2);
   const fontColor = fontColorContrast(midpoint);
 
   return (
-    <div className="relative" style={{ width: size, height: size }}>
+    <div className={"relative " + classNames} style={{ width: size, height: size }}>
       <svg
         width={size}
         height={size}
@@ -65,8 +66,8 @@ function GradientAvatar({ name }: Props) {
         </defs>
       </svg>
       <div
-        className="text-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-        style={{ color: fontColor }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        style={{ color: fontColor, fontSize: (size * 2) / 3 }}
       >
         {name[0].toUpperCase()}
       </div>
