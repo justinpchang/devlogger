@@ -1,3 +1,4 @@
+import { timeAgo } from "@/services/TimeAgo";
 import { UpdateForFeed } from "@/types/update.types";
 
 interface Props {
@@ -16,7 +17,7 @@ function Update({ update }: Props) {
           dateTime={update.created_at}
           className="flex-none py-0.5 text-xs leading-5 text-gray-500"
         >
-          {update.created_at}
+          {timeAgo.format(Date.parse(update.created_at))}
         </time>
       </div>
       <div className="w-full rounded-md mt-2 p-5 ring-1 ring-inset ring-gray-200 flex flex-col gap-y-2">
