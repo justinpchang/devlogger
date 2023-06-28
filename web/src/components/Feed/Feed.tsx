@@ -1,4 +1,3 @@
-import { UpdateForFeed } from "@/types/update.types";
 import { GradientAvatar } from "../Avatar/GradientAvatar";
 import { Update } from "./Update";
 import { useUpdatesForGlobal } from "@/hooks/useUpdatesForGlobal";
