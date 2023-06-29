@@ -9,9 +9,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users do
-        get 'me', on: :collection
+      resources :users, param: :username, only: %i[show update] do
         resources :projects, only: [:index]
+        get 'me', on: :collection
+        post 'avatar', on: :member
       end
       resources :projects, only: [:create] do
         resources :updates, only: [:create]

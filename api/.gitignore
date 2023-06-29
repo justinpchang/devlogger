@@ -47,3 +47,5 @@ yarn-debug.log*
 !.yarn/versions
 /.yarn/releases/** binary
 /.yarn/plugins/** binary
+
+public/uploads

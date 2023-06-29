@@ -5,6 +5,8 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  about                  :string
+#  avatar                 :string
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string
 #  email                  :string           default(""), not null

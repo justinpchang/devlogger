@@ -9,3 +9,12 @@ body,
   width: 100vw;
   overflow-x: hidden;
 }
+
+img {
+  max-width: unset;
+  height: auto;
+}
+
+input:autofill {
+  background: transparent;
+}

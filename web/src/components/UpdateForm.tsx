@@ -12,7 +12,8 @@ function UpdateForm() {
   const [description, setDescription] = useState("");
 
   const { data: currentUser } = useCurrentUser();
-  const { data: projects } = useGetProjects(currentUser?.id);
+  // TODO: Make username required value
+  const { data: projects } = useGetProjects(currentUser?.username!);
   const { mutate: createUpdate, isLoading: isSubmitting } = useCreateUpdate();
 
   const projectOptions = useMemo(() => {
