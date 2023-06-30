@@ -9,6 +9,7 @@ import { CURRENT_USER_QUERY_KEY, useCurrentUser } from "@/hooks/useCurrentUser";
 import { authService } from "@/services/AuthService";
 import toast from "react-hot-toast";
 import { GradientAvatar } from "./Avatar/GradientAvatar";
+import { Avatar } from "./Avatar";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -108,7 +109,7 @@ function Navbar() {
                       <div>
                         <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-mulberry-500 focus:ring-offset-2">
                           <span className="sr-only">Open user menu</span>
-                          <GradientAvatar name={currentUser.username!} size={30} />
+                          <Avatar user={currentUser} size="sm" />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -124,7 +125,7 @@ function Navbar() {
                           <Menu.Item>
                             {({ active }) => (
                               <Link
-                                href="/profile"
+                                href={`/profile/${currentUser.username}`}
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"

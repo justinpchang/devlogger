@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { GradientAvatar } from "@/components/Avatar/GradientAvatar";
 import Link from "next/link";
+import { Avatar } from "@/components/Avatar";
 
 const tabs = [
   { name: "Profile", href: "#", current: true },
@@ -40,23 +41,15 @@ export default function ProfilePage() {
                     <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
                       <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
                         <div className="flex">
-                          {user.avatar.url ? (
-                            <Image
-                              src={user.avatar.url}
-                              width={96}
-                              height={96}
-                              alt="Avatar"
-                              className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-                            />
-                          ) : (
-                            <GradientAvatar
-                              name={user.name}
-                              size={96}
-                              className="h-12 w-12 text-gray-300"
-                            />
-                          )}
+                          <Avatar user={user} size="lg" />
                         </div>
                         <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+                          <div className="mt-6 block min-w-0 flex-1 sm:hidden">
+                            <h1 className="text-2xl font-semibold text-gray-900">{user.name}</h1>
+                            <h2 className="text-xl font-light text-gray-500 tracking-tight">
+                              @{user.username}
+                            </h2>
+                          </div>
                           <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
                             <button
                               type="button"
