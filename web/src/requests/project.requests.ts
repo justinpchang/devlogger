@@ -3,7 +3,7 @@ import { Project } from "@/types/project.types";
 
 export const getProjects = async (username: string): Promise<Project[]> => {
   const response = await apiService.instance.get(`/users/${username}/projects`);
-  return response.data.projects;
+  return response.data;
 };
 
 export const createProject = async (

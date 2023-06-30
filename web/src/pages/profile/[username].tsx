@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { Feed } from "@/components/Feed";
 import { useGetUpdatesForUser } from "@/hooks/useGetUpdatesForUser";
+import { ProjectList } from "@/components/ProjectList";
+import { useGetProjects } from "@/hooks/useGetProjects";
 
 const TABS = ["Profile", "Projects", "Updates"] as const;
 
@@ -20,11 +22,12 @@ export default function ProfilePage() {
   const [tab, setTab] = useState<(typeof TABS)[number]>("Profile");
   const router = useRouter();
 
-  const { data: user } = useGetUser(router.query.username as string);
+  const username = router.query.username as string;
+
+  const { data: user } = useGetUser(username);
   const { data: currentUser } = useCurrentUser();
-  const { data: updates, isLoading: isUpdatesLoading } = useGetUpdatesForUser(
-    router.query.username as string
-  );
+  const { data: projects, isLoading: isProjectsLoading } = useGetProjects(username);
+  const { data: updates, isLoading: isUpdatesLoading } = useGetUpdatesForUser(username);
 
   useEffect(() => {
     if (tab !== router.query.tab)
@@ -126,9 +129,9 @@ export default function ProfilePage() {
                     </div>
                   </div>
 
-                  {tab === "Profile" && (
-                    <div className="mx-auto mt-6 max-w-5xl px-4 sm:px-6 lg:px-8">
-                      <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                  <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+                    {tab === "Profile" && (
+                      <dl className="mt-6 grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                         {user.about && (
                           <div className="sm:col-span-2">
                             <dt className="text-sm font-medium text-gray-500">About</dt>
@@ -144,10 +147,14 @@ export default function ProfilePage() {
                           </div>
                         )}
                       </dl>
-                    </div>
-                  )}
+                    )}
 
-                  {tab === "Updates" && <Feed updates={updates} isLoading={isUpdatesLoading} />}
+                    {tab === "Projects" && (
+                      <ProjectList projects={projects} isLoading={isProjectsLoading} />
+                    )}
+
+                    {tab === "Updates" && <Feed updates={updates} isLoading={isUpdatesLoading} />}
+                  </div>
                 </article>
               </main>
             </div>

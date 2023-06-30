@@ -9,7 +9,7 @@ module Api
       before_action :authenticate_user!, only: %i[create]
 
       def index
-        render json: { projects: @user.projects }
+        @projects = @user.projects
       end
 
       def create

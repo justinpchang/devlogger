@@ -7,4 +7,5 @@ export interface Project {
   description: string | null;
   created_at: string;
   updated_at: string;
+  last_update_posted_at: string | null;
 }
