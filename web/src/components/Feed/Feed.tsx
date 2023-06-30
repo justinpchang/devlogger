@@ -18,7 +18,7 @@ function Feed() {
             <GradientAvatar
               name={update.user.username!}
               size={24}
-              classNames="relative mt-3 w-6 h-6"
+              className="relative mt-3 w-6 h-6"
             />
             <Update update={update} />
           </li>

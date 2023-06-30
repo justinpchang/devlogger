@@ -9,7 +9,7 @@ export function useUpdateUser() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  return useMutation((data: Pick<User, "username" | "about">) => updateUser(data), {
+  return useMutation((data: Pick<User, "name" | "about" | "website">) => updateUser(data), {
     onSuccess: (user) => {
       toast.success("Profile updated successfully");
       // TODO: Consolidate to use single query key

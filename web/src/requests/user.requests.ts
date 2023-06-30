@@ -11,7 +11,7 @@ export const getUser = async (username: string): Promise<User> => {
   return response.data;
 };
 
-export const updateUser = async (data: Pick<User, "username" | "about">): Promise<User> => {
+export const updateUser = async (data: Pick<User, "name" | "about" | "website">): Promise<User> => {
   const response = await apiService.instance.patch("/users/me", { user: data });
   return response.data;
 };

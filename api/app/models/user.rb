@@ -13,11 +13,13 @@
 #  encrypted_password     :string           default(""), not null
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
+#  name                   :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  sign_in_count          :integer          default(0), not null
-#  username               :string
+#  username               :string           not null
+#  website                :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #

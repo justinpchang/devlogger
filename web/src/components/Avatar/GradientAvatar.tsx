@@ -4,7 +4,7 @@ import fontColorContrast from "font-color-contrast";
 interface Props {
   name: string;
   size: number;
-  classNames?: string;
+  className?: string;
 }
 
 const colorHash = new ColorHash({ saturation: 1.0 });
@@ -35,13 +35,13 @@ function blendColors(c1: string, c2: string) {
   return "#" + r + g + b;
 }
 
-function GradientAvatar({ name, size, classNames }: Props) {
+function GradientAvatar({ name, size, className }: Props) {
   const [c1, c2] = generateColors(name);
   const midpoint = blendColors(c1, c2);
   const fontColor = fontColorContrast(midpoint);
 
   return (
-    <div className={"relative " + classNames} style={{ width: size, height: size }}>
+    <div className={"relative " + className} style={{ width: size, height: size }}>
       <svg
         width={size}
         height={size}

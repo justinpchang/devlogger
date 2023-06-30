@@ -14,7 +14,7 @@ module Api
 
       def update
         user = params.require(:user)
-        current_user.update!(username: user['username'], about: user['about'])
+        current_user.update!(name: user['name'], about: user['about'], website: user['website'])
         render partial: 'users/user', locals: { user: current_user }
       end
 
