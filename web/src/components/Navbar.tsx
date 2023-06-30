@@ -31,6 +31,8 @@ function Navbar() {
     },
   });
 
+  console.log(router);
+
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
@@ -68,13 +70,23 @@ function Navbar() {
                     {/* Desktop menu */}
                     <Link
                       href="/"
-                      className="inline-flex items-center border-b-2 border-mulberry-500 px-1 pt-1 text-sm font-medium text-gray-900"
+                      className={classNames(
+                        "inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900",
+                        router.pathname === "/" ? "border-mulberry-500" : "border-transparent"
+                      )}
                     >
                       Feed
                     </Link>
                     <Link
-                      href="/projects"
-                      className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                      href={`/profile/${currentUser.username}?tab=Projects`}
+                      className={classNames(
+                        "inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900",
+                        router.pathname === "/profile/[username]" &&
+                          router.query.username === currentUser.username &&
+                          router.query.tab === "Projects"
+                          ? "border-mulberry-500"
+                          : "border-transparent"
+                      )}
                     >
                       Projects
                     </Link>
