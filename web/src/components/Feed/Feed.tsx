@@ -1,6 +1,7 @@
 import { UpdateForFeed } from "@/types/update.types";
 import { Avatar } from "../Avatar";
 import { Update } from "./Update";
+import Link from "next/link";
 
 interface Props {
   updates: UpdateForFeed[] | undefined;
@@ -18,7 +19,9 @@ function Feed({ updates, isLoading }: Props) {
             <div className="absolute left-0 top-0 flex w-6 justify-center -bottom-6">
               <div className="w-px bg-gray-200" />
             </div>
-            <Avatar user={update.user} size="xs" className="relative mt-3 w-6 h-6" />
+            <Link href={`/profile/${update.user.username}`}>
+              <Avatar user={update.user} size="xs" className="relative mt-3 w-6 h-6" />
+            </Link>
             <Update update={update} />
           </li>
         ))
