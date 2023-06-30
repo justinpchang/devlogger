@@ -36,7 +36,7 @@ export class ApiService {
       (error) => {
         if (
           error.response?.status === 401 &&
-          error.response.data.message === "User is not signed in"
+          (error.response.data.message === "User is not signed in" || !error.reponse.data.message)
         ) {
           Cookies.remove(JWT_COOKIE_NAME);
         }
