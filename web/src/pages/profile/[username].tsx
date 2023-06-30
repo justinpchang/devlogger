@@ -5,7 +5,7 @@ import { useGetUser } from "@/hooks/useGetUser";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Avatar } from "@/components/Avatar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { Feed } from "@/components/Feed";
 import { useGetUpdatesForUser } from "@/hooks/useGetUpdatesForUser";
@@ -25,6 +25,17 @@ export default function ProfilePage() {
   const { data: updates, isLoading: isUpdatesLoading } = useGetUpdatesForUser(
     router.query.username as string
   );
+
+  useEffect(() => {
+    if (tab !== router.query.tab)
+      setTab((router.query.tab as (typeof TABS)[number] | undefined) ?? "Profile");
+  }, [router.query.tab, tab, router]);
+
+  const handleTabClick = (newTab: (typeof TABS)[number]) => {
+    router.replace({
+      query: { ...router.query, tab: newTab },
+    });
+  };
 
   if (!user) {
     return <h1>Loading...</h1>;
@@ -98,7 +109,7 @@ export default function ProfilePage() {
                           {TABS.map((tabName) => (
                             <div
                               key={"tab-" + tabName}
-                              onClick={() => setTab(tabName)}
+                              onClick={() => handleTabClick(tabName)}
                               aria-current={tab === tabName}
                               className={classNames(
                                 tab === tabName

@@ -28,7 +28,6 @@ class Project < ApplicationRecord
   belongs_to :user
   has_many :updates, dependent: :destroy
 
-  validates :user_id
   validates :name, presence: true, uniqueness: true
   validates :slug, presence: true, uniqueness: true
 end
