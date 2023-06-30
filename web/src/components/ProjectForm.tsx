@@ -2,28 +2,34 @@ import { useState } from "react";
 import parameterize from "parameterize";
 import { useRouter } from "next/router";
 import { useCreateProject } from "@/hooks/useCreateProject";
+import { Project } from "@/types/project.types";
+import { useUpdateProject } from "@/hooks/useUpdateProject";
 
-function ProjectForm() {
-  const [name, setName] = useState("");
-  const [slug, setSlug] = useState("");
-  const [homepage, setHomepage] = useState("");
-  const [description, setDescription] = useState("");
+interface Props {
+  // Omitted if creating a new project
+  editingProject?: Project;
+}
+
+function ProjectForm({ editingProject }: Props) {
+  const [name, setName] = useState(editingProject?.name ?? "");
+  const [slug, setSlug] = useState(editingProject?.slug ?? "");
+  const [homepage, setHomepage] = useState(editingProject?.homepage ?? "");
+  const [description, setDescription] = useState(editingProject?.description ?? "");
 
   const router = useRouter();
-  const { mutate: createProject, isLoading: isSubmitting } = useCreateProject();
+  const { mutate: createProject, isLoading: isCreateSubmitting } = useCreateProject();
+  const { mutate: updateProject, isLoading: isUpdateSubmitting } = useUpdateProject();
+  const submit = editingProject ? updateProject : createProject;
+  const isSubmitting = editingProject ? isUpdateSubmitting : isCreateSubmitting;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createProject({ name, slug, homepage, description });
+    submit({ name, slug, homepage, description });
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
-    setSlug(parameterize(e.target.value));
-  };
-
-  const handleSlugChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSlug(e.target.value);
+    if (!editingProject) setSlug(parameterize(e.target.value));
   };
 
   const isValid = name && slug;
@@ -32,10 +38,14 @@ function ProjectForm() {
     <form onSubmit={handleSubmit} className="my-12">
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-8">
-          <h2 className="text-2xl font-semibold leading-7 text-gray-900">Create a new project</h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
-            A project is a collection of updates that you share with the world.
-          </p>
+          <h2 className="text-2xl font-semibold leading-7 text-gray-900">
+            {editingProject ? "Edit your project" : "Create a new project"}
+          </h2>
+          {!editingProject && (
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+              A project is a collection of updates that you share with the world.
+            </p>
+          )}
 
           <hr className="my-2" />
           <p className="text-sm leading-6 text-gray-400">
@@ -75,6 +85,11 @@ function ProjectForm() {
               >
                 Project URL
               </label>
+              {!!editingProject && (
+                <p className="mt-1 text-sm leading-6 text-gray-400">
+                  <em>The project URL cannot be edited after creation.</em>
+                </p>
+              )}
               <div className="mt-2">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-mulberry-600 sm:max-w-md">
                   <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">

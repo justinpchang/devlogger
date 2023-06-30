@@ -17,3 +17,10 @@ export const createProject = async (
   const response = await apiService.instance.post("/projects", data);
   return response.data.project;
 };
+
+export const updateProject = async (
+  data: Pick<Project, "name" | "slug" | "homepage" | "description">
+): Promise<ProjectWithUser> => {
+  const response = await apiService.instance.patch(`/projects/${data.slug}`, data);
+  return response.data;
+};
