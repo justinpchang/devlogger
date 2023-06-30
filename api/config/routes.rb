@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users, param: :username, only: %i[show update] do
+        resources :updates, only: [:index]
         resources :projects, only: [:index]
         get 'me', on: :collection
         post 'avatar', on: :member

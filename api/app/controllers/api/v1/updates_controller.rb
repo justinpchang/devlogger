@@ -10,7 +10,15 @@ module Api
       before_action :authenticate_user!, only: %i[create]
 
       def index
-        @updates = Update.includes(project: :user).all.order(created_at: :desc)
+        @updates = Update.includes(project: :user).order(created_at: :desc)
+        if params[:user_username]
+          # User feed
+          @updates =
+            @updates.where(projects: { user: User.find_by(username: params[:user_username]) })
+        else
+          # Global feed
+          @updates = Update.includes(project: :user).all.order(created_at: :desc)
+        end
       end
 
       def create

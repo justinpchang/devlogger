@@ -1,13 +1,16 @@
+import { UpdateForFeed } from "@/types/update.types";
 import { Avatar } from "../Avatar";
 import { Update } from "./Update";
-import { useUpdatesForGlobal } from "@/hooks/useUpdatesForGlobal";
 
-function Feed() {
-  const { data: updates, isLoading } = useUpdatesForGlobal();
+interface Props {
+  updates: UpdateForFeed[] | undefined;
+  isLoading: boolean;
+}
 
+function Feed({ updates, isLoading }: Props) {
   return (
     <ul role="list" className="space-y-6">
-      {isLoading || !updates ? (
+      {isLoading ? (
         <div>Loading...</div>
       ) : (
         updates?.map((update) => (

@@ -12,3 +12,8 @@ export const getGlobalUpdates = async (): Promise<UpdateForFeed[]> => {
   const response = await apiService.instance.get("/updates");
   return response.data;
 };
+
+export const getUserUpdates = async (username: string): Promise<UpdateForFeed[]> => {
+  const response = await apiService.instance.get(`/users/${username}/updates`);
+  return response.data;
+};
