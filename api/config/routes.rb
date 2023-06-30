@@ -15,8 +15,8 @@ Rails.application.routes.draw do
         get 'me', on: :collection
         post 'avatar', on: :member
       end
-      resources :projects, only: [:create] do
-        resources :updates, only: [:create]
+      resources :projects, param: :slug, only: %i[show create] do
+        resources :updates, only: %i[index create]
       end
       resources :updates, only: [:index]
     end

@@ -1,3 +1,5 @@
+import { User } from "./user.types";
+
 export interface Project {
   id: number;
   user_id: number;
@@ -8,4 +10,8 @@ export interface Project {
   created_at: string;
   updated_at: string;
   last_update_posted_at: string | null;
+}
+
+export interface ProjectWithUser extends Project {
+  user: User;
 }

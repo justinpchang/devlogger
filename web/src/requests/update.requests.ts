@@ -17,3 +17,8 @@ export const getUserUpdates = async (username: string): Promise<UpdateForFeed[]>
   const response = await apiService.instance.get(`/users/${username}/updates`);
   return response.data;
 };
+
+export const getProjectUpdates = async (slug: string): Promise<UpdateForFeed[]> => {
+  const response = await apiService.instance.get(`/projects/${slug}/updates`);
+  return response.data;
+};

@@ -11,14 +11,17 @@ module Api
 
       def index
         @updates = Update.includes(project: :user).order(created_at: :desc)
-        if params[:user_username]
-          # User feed
-          @updates =
+        @updates =
+          if params[:user_username]
+            # User feed
             @updates.where(projects: { user: User.find_by(username: params[:user_username]) })
-        else
-          # Global feed
-          @updates = Update.includes(project: :user).all.order(created_at: :desc)
-        end
+          elsif params[:project_slug]
+            # Project feed
+            @updates.where(projects: { slug: params[:project_slug] })
+          else
+            # Global feed
+            Update.includes(project: :user).all.order(created_at: :desc)
+          end
       end
 
       def create
