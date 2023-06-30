@@ -31,8 +31,6 @@ function Navbar() {
     },
   });
 
-  console.log(router);
-
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
