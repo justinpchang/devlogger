@@ -13,4 +13,6 @@ export interface Update {
 export interface UpdateForFeed extends Update {
   project: Project;
   user: User;
+  upvotes: number;
+  upvoted: boolean;
 }

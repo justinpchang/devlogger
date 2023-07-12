@@ -44,4 +44,6 @@ class User < ApplicationRecord
 
   has_many :projects, dependent: :destroy
   has_many :updates, through: :projects
+  has_many :upvotes, dependent: :destroy
+  has_many :upvoted_updates, through: :upvotes, source: :update
 end

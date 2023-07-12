@@ -18,7 +18,11 @@ Rails.application.routes.draw do
       resources :projects, param: :slug, only: %i[show create update] do
         resources :updates, only: %i[index create]
       end
-      resources :updates, only: [:index]
+      resources :updates, only: [:index] do
+        resources :upvotes, only: %i[create] do
+          delete '/', to: 'upvotes#destroy', on: :collection
+        end
+      end
     end
   end
 end

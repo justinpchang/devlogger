@@ -1,12 +1,39 @@
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { createUpvote, deleteUpvote } from "@/requests/upvote.requests";
 import { timeAgo } from "@/services/TimeAgo";
 import { UpdateForFeed } from "@/types/update.types";
+import { ChevronDoubleUpIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useMutation } from "react-query";
 
 interface Props {
   update: UpdateForFeed;
 }
 
 function Update({ update }: Props) {
+  const [recentAction, setRecentAction] = useState<"create" | "delete" | null>(null);
+
+  const { data: currentUser } = useCurrentUser();
+
+  const { mutate: upvote } = useMutation(() => createUpvote(update.id), {
+    onSuccess: () => {
+      setRecentAction((recent) => (recent === "delete" ? null : "create"));
+    },
+    onError: () => {
+      toast.error("Error upvoting. Please try again later.");
+    },
+  });
+  const { mutate: unUpvote } = useMutation(() => deleteUpvote(update.id), {
+    onSuccess: () => {
+      setRecentAction((recent) => (recent === "create" ? null : "delete"));
+    },
+    onError: () => {
+      toast.error("Error removing upvote. Please try again later.");
+    },
+  });
+
   return (
     <div className="w-full">
       <div className="mt-[0.65rem] ml-1 flex gap-x-1">
@@ -35,6 +62,29 @@ function Update({ update }: Props) {
           dangerouslySetInnerHTML={{ __html: update.description }}
           className="ProseMirror text-sm leading-6 text-gray-500 text-justify"
         />
+        <div className="flex -mb-3 mt-2 items-center justify-between">
+          <div
+            onClick={() =>
+              currentUser &&
+              ((update.upvoted && recentAction === null) || recentAction === "create"
+                ? unUpvote()
+                : upvote())
+            }
+            className={
+              "flex flex-col items-center hover:cursor-pointer " +
+              ((update.upvoted && recentAction === null) || recentAction === "create"
+                ? "text-teal-600 hover:text-teal-500"
+                : "text-gray-400 hover:text-gray-500")
+            }
+          >
+            <ChevronDoubleUpIcon className="w-5 h-5" />
+            <div className="text-xs leading-4">
+              {update.upvotes +
+                Number(recentAction === "create" && 1) +
+                Number(recentAction === "delete" && -1)}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -22,4 +22,5 @@
 #
 class Update < ApplicationRecord
   belongs_to :project
+  has_many :upvotes, dependent: :destroy
 end

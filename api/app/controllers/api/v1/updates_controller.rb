@@ -10,7 +10,8 @@ module Api
       before_action :authenticate_user!, only: %i[create]
 
       def index
-        @updates = Update.includes(project: :user).order(created_at: :desc)
+        @current_user_id = current_user&.id
+        @updates = Update.includes(:upvotes, project: :user).order(created_at: :desc)
         @updates =
           if params[:user_username]
             # User feed
@@ -20,7 +21,7 @@ module Api
             @updates.where(projects: { slug: params[:project_slug] })
           else
             # Global feed
-            Update.includes(project: :user).all.order(created_at: :desc)
+            @updates.all
           end
       end
 
