@@ -11,4 +11,7 @@ export interface User {
     url: string;
     thumbnail_url: string;
   };
+
+  // TODO: (justinpchang) Refactor to separate Subscribers/Subscription query
+  subscribed: boolean;
 }

@@ -10,10 +10,12 @@ module Api
 
       def create
         @update.upvotes.where(user: current_user).first_or_create!
+        head 200
       end
 
       def destroy
         Upvote.find_by(update_id: @update.id, user: current_user)&.destroy!
+        head 200
       end
 
       private

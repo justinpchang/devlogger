@@ -12,11 +12,17 @@ Rails.application.routes.draw do
       resources :users, param: :username, only: %i[show update] do
         resources :updates, only: [:index]
         resources :projects, only: [:index]
+        resources :subscriptions, only: %i[create] do
+          delete '/', to: 'subscriptions#destroy', on: :collection
+        end
         get 'me', on: :collection
         post 'avatar', on: :member
       end
       resources :projects, param: :slug, only: %i[show create update] do
         resources :updates, only: %i[index create]
+        resources :subscriptions, only: %i[create] do
+          delete '/', to: 'subscriptions#destroy', on: :collection
+        end
       end
       resources :updates, only: [:index] do
         resources :upvotes, only: %i[create] do

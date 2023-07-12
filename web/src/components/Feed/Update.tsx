@@ -33,6 +33,7 @@ function Update({ update }: Props) {
       toast.error("Error removing upvote. Please try again later.");
     },
   });
+  const upvoted = (update.upvoted && recentAction === null) || recentAction === "create";
 
   return (
     <div className="w-full">
@@ -64,17 +65,10 @@ function Update({ update }: Props) {
         />
         <div className="flex -mb-3 mt-2 items-center justify-between">
           <div
-            onClick={() =>
-              currentUser &&
-              ((update.upvoted && recentAction === null) || recentAction === "create"
-                ? unUpvote()
-                : upvote())
-            }
+            onClick={() => currentUser && (upvoted ? unUpvote() : upvote())}
             className={
               "flex flex-col items-center hover:cursor-pointer " +
-              ((update.upvoted && recentAction === null) || recentAction === "create"
-                ? "text-teal-600 hover:text-teal-500"
-                : "text-gray-400 hover:text-gray-500")
+              (upvoted ? "text-teal-600 hover:text-teal-500" : "text-gray-400 hover:text-gray-500")
             }
           >
             <ChevronDoubleUpIcon className="w-5 h-5" />

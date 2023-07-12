@@ -11,6 +11,8 @@ import { Feed } from "@/components/Feed";
 import { useGetUpdatesForUser } from "@/hooks/useGetUpdatesForUser";
 import { ProjectList } from "@/components/ProjectList";
 import { useGetProjects } from "@/hooks/useGetProjects";
+import { useCreateSubscription } from "@/hooks/useCreateSubscription";
+import { useDeleteSubscription } from "@/hooks/useDeleteSubscription";
 
 const TABS = ["Profile", "Projects", "Updates"] as const;
 
@@ -28,6 +30,12 @@ export default function ProfilePage() {
   const { data: currentUser } = useCurrentUser();
   const { data: projects, isLoading: isProjectsLoading } = useGetProjects(username);
   const { data: updates, isLoading: isUpdatesLoading } = useGetUpdatesForUser(username);
+  const { mutate: subscribe } = useCreateSubscription({
+    username: user?.username!,
+  });
+  const { mutate: unsubscribe } = useDeleteSubscription({
+    username: user?.username!,
+  });
 
   useEffect(() => {
     if (tab !== router.query.tab)
@@ -87,10 +95,21 @@ export default function ProfilePage() {
                           <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
                             <button
                               type="button"
-                              className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                              onClick={() => {
+                                user.subscribed ? unsubscribe() : subscribe();
+                              }}
+                              className={
+                                "inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 " +
+                                (user.subscribed ? "text-teal-600" : "text-gray-900")
+                              }
                             >
-                              <RssIcon className="-ml-0.5 h-5 w-5 text-gray-400" />
-                              Subscribe
+                              <RssIcon
+                                className={
+                                  "-ml-0.5 h-5 w-5 " +
+                                  (user.subscribed ? "text-teal-500" : "text-gray-400")
+                                }
+                              />
+                              {user.subscribed ? "Subscribed" : "Subscribe"}
                             </button>
                           </div>
                         </div>

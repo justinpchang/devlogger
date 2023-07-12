@@ -14,7 +14,7 @@ module Api
       end
 
       def show
-        render partial: 'projects/project_with_user', locals: { project: @project }
+        @current_user_id = current_user&.id
       end
 
       def create

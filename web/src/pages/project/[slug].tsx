@@ -1,7 +1,9 @@
 import { Container } from "@/components/Container";
 import { Feed } from "@/components/Feed";
 import { Navbar } from "@/components/Navbar";
+import { useCreateSubscription } from "@/hooks/useCreateSubscription";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useDeleteSubscription } from "@/hooks/useDeleteSubscription";
 import { useGetProject } from "@/hooks/useGetProject";
 import { useGetUpdatesForProject } from "@/hooks/useGetUpdatesForProject";
 import { PencilIcon, RssIcon } from "@heroicons/react/20/solid";
@@ -15,6 +17,12 @@ export default function ProjectPage() {
   const { data: currentUser } = useCurrentUser();
   const { data: project, isLoading } = useGetProject(slug);
   const { data: updates, isLoading: isUpdatesLoading } = useGetUpdatesForProject(slug);
+  const { mutate: subscribe } = useCreateSubscription({
+    slug: slug!,
+  });
+  const { mutate: unsubscribe } = useDeleteSubscription({
+    slug: slug!,
+  });
 
   if (isLoading || !project) {
     return <h1>Loading...</h1>;
@@ -71,10 +79,16 @@ export default function ProjectPage() {
               <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
                 <button
                   type="button"
-                  className="inline-flex justify-center gap-x-1.5 rounded-md bg-teal-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500"
+                  onClick={() => (project.subscribed ? unsubscribe() : subscribe())}
+                  className={
+                    "inline-flex justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold shadow-sm " +
+                    (project.subscribed
+                      ? "bg-white text-teal-600 hover:bg-gray-50 ring-1 ring-inset ring-gray-300"
+                      : "bg-teal-600 text-white hover:bg-teal-500")
+                  }
                 >
-                  <RssIcon className="-ml-0.5 h-5 w-5 text-white" />
-                  Subscribe
+                  <RssIcon className="-ml-0.5 h-5 w-5" />
+                  {project.subscribed ? "Subscribed" : "Subscribe"}
                 </button>
               </div>
             </div>

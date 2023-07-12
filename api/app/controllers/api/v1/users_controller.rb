@@ -10,6 +10,7 @@ module Api
       before_action :set_user!, only: %i[show]
 
       def show
+        @current_user_id = current_user&.id
       end
 
       def update

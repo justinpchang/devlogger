@@ -25,6 +25,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Project < ApplicationRecord
+  include Subscribable
+
   belongs_to :user
   has_many :updates, dependent: :destroy
 

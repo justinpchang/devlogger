@@ -10,6 +10,9 @@ export interface Project {
   created_at: string;
   updated_at: string;
   last_update_posted_at: string | null;
+
+  // TODO: (justinpchang) Refactor to separate Subscribers/Subscription query
+  subscribed?: boolean;
 }
 
 export interface ProjectWithUser extends Project {
