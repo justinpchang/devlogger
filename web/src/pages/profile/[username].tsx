@@ -116,7 +116,7 @@ export default function ProfilePage() {
                               aria-current={tab === tabName}
                               className={classNames(
                                 tab === tabName
-                                  ? "border-mulberry-500 text-gray-900"
+                                  ? "border-teal-500 text-gray-900"
                                   : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
                                 "whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium hover:cursor-pointer"
                               )}

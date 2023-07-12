@@ -10,6 +10,7 @@ import { authService } from "@/services/AuthService";
 import toast from "react-hot-toast";
 import { GradientAvatar } from "./Avatar/GradientAvatar";
 import { Avatar } from "./Avatar";
+import { Logo } from "./Logo";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -41,7 +42,7 @@ function Navbar() {
                 <div className="-ml-2 mr-2 flex items-center md:hidden">
                   {/* Mobile menu button */}
                   {currentUser && (
-                    <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-mulberry-500">
+                    <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-500">
                       <span className="sr-only">Open main menu</span>
                       {open ? (
                         <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -52,16 +53,7 @@ function Navbar() {
                   )}
                 </div>
                 <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    alt="Your Company"
-                  />
-                  <img
-                    className="hidden h-8 w-auto lg:block"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    alt="Your Company"
-                  />
+                  <Logo size={48} />
                 </div>
                 {currentUser && (
                   <div className="hidden md:ml-6 md:flex md:space-x-8">
@@ -70,7 +62,7 @@ function Navbar() {
                       href="/"
                       className={classNames(
                         "inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900",
-                        router.pathname === "/" ? "border-mulberry-500" : "border-transparent"
+                        router.pathname === "/" ? "border-teal-500" : "border-transparent"
                       )}
                     >
                       Feed
@@ -82,7 +74,7 @@ function Navbar() {
                         router.pathname === "/profile/[username]" &&
                           router.query.username === currentUser.username &&
                           router.query.tab === "Projects"
-                          ? "border-mulberry-500"
+                          ? "border-teal-500"
                           : "border-transparent"
                       )}
                     >
@@ -97,7 +89,7 @@ function Navbar() {
                     <Link href="/new-update">
                       <button
                         type="button"
-                        className="relative inline-flex items-center gap-x-1.5 rounded-md bg-mulberry-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-mulberry-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mulberry-600"
+                        className="relative inline-flex items-center gap-x-1.5 rounded-md bg-teal-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
                       >
                         <PlusIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
                         New Update
@@ -106,7 +98,7 @@ function Navbar() {
                     <Link href="/new-project">
                       <button
                         type="button"
-                        className="relative inline-flex items-center gap-x-1.5 rounded-md bg-mulberry-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-mulberry-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mulberry-600"
+                        className="relative inline-flex items-center gap-x-1.5 rounded-md bg-teal-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
                       >
                         <PlusIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
                         New Project
@@ -117,7 +109,7 @@ function Navbar() {
                     {/* Profile dropdown */}
                     <Menu as="div" className="relative ml-3">
                       <div>
-                        <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-mulberry-500 focus:ring-offset-2">
+                        <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
                           <span className="sr-only">Open user menu</span>
                           <Avatar user={currentUser} size="sm" />
                         </Menu.Button>
@@ -175,7 +167,7 @@ function Navbar() {
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <Link href="/login">
-                      <button className="relative inline-flex items-center gap-x-1.5 rounded-md bg-mulberry-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-mulberry-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mulberry-600">
+                      <button className="relative inline-flex items-center gap-x-1.5 rounded-md bg-teal-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600">
                         Sign in
                       </button>
                     </Link>
@@ -189,11 +181,11 @@ function Navbar() {
 
           <Disclosure.Panel className="md:hidden">
             <div className="space-y-1 pb-3 pt-2">
-              {/* Current: "bg-mulberry-50 border-mulberry-500 text-mulberry-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
+              {/* Current: "bg-teal-50 border-teal-500 text-teal-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
               <Disclosure.Button
                 as={Link}
                 href="/"
-                className="block border-l-4 border-mulberry-500 bg-mulberry-50 py-2 pl-3 pr-4 text-base font-medium text-mulberry-700 sm:pl-5 sm:pr-6"
+                className="block border-l-4 border-teal-500 bg-teal-50 py-2 pl-3 pr-4 text-base font-medium text-teal-700 sm:pl-5 sm:pr-6"
               >
                 Feed
               </Disclosure.Button>

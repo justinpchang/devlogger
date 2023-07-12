@@ -52,7 +52,7 @@ function Combobox({ value, setValue, options, className }: Props) {
                 className={({ active }) =>
                   classNames(
                     "relative cursor-default select-none py-2 pl-3 pr-9",
-                    active ? "bg-mulberry-600 text-white" : "text-gray-900"
+                    active ? "bg-teal-600 text-white" : "text-gray-900"
                   )
                 }
               >
@@ -66,7 +66,7 @@ function Combobox({ value, setValue, options, className }: Props) {
                       <span
                         className={classNames(
                           "absolute inset-y-0 right-0 flex items-center pr-4",
-                          active ? "text-white" : "text-mulberry-600"
+                          active ? "text-white" : "text-teal-600"
                         )}
                       >
                         <CheckIcon className="h-5 w-5" aria-hidden="true" />
