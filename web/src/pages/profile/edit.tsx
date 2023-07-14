@@ -7,6 +7,7 @@ import { useUploadAvatar } from "@/hooks/useUploadAvatar";
 import Image from "next/image";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { useUpdateUser } from "@/hooks/useUpdateUser";
+import Head from "next/head";
 
 export default function EditProfile() {
   const [name, setName] = useState("");
@@ -62,6 +63,9 @@ export default function EditProfile() {
 
   return (
     <>
+      <Head>
+        <title>Edit your profile</title>
+      </Head>
       <Navbar />
       <Container>
         <form onSubmit={handleSubmit} className="my-12">
