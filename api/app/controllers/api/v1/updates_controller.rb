@@ -32,6 +32,7 @@ module Api
         respond_to do |format|
           format.json
           format.atom
+          format.rss
         end
       end
 
