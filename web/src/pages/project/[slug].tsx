@@ -6,7 +6,9 @@ import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { useDeleteSubscription } from "@/hooks/useDeleteSubscription";
 import { useGetProject } from "@/hooks/useGetProject";
 import { useGetUpdatesForProject } from "@/hooks/useGetUpdatesForProject";
+import { getLink } from "@/requests/feed.requests";
 import { PencilIcon, RssIcon } from "@heroicons/react/20/solid";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -30,6 +32,23 @@ export default function ProjectPage() {
 
   return (
     <>
+      <Head>
+        <title>
+          {project.user.username}/{project.slug}
+        </title>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={`${project.user.username}/${project.slug}'s RSS feed`}
+          href={`/api/feeds/${getLink("rss", { slug: project.slug })}`}
+        />
+        <link
+          rel="alternate"
+          type="application/atom+xml"
+          title={`${project.user.username}/${project.slug}'s Atom feed`}
+          href={`/api/feeds/${getLink("atom", { slug: project.slug })}`}
+        />
+      </Head>
       <Navbar />
       <Container>
         <div className="mx-auto max-w-3xl text-base leading-7 text-gray-700">

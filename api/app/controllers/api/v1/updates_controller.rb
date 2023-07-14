@@ -4,7 +4,6 @@
 module Api
   module V1
     class UpdatesController < ApplicationController
-      respond_to :json
       before_action :set_project!, only: %i[create]
       before_action :verify_project_owner!, only: %i[create]
       before_action :authenticate_user!, only: %i[create]
@@ -15,14 +14,26 @@ module Api
         @updates =
           if params[:user_username]
             # User feed
+            @title = "#{params[:user_username]}'s inpublic feed"
+            @url = "https://inpublic.dev/profile/#{params[:user_username]}?tab=Updates"
             @updates.where(projects: { user: User.find_by(username: params[:user_username]) })
           elsif params[:project_slug]
             # Project feed
+            @title = "#{params[:project_slug]}'s inpublic feed"
+            @url = "https://inpublic.dev/projects/#{params[:project_slug]}"
             @updates.where(projects: { slug: params[:project_slug] })
           else
             # Global feed
+            @title = 'inpublic global feed'
+            @url = 'https://inpublic.dev'
             @updates.all
           end
+
+        respond_to do |format|
+          format.json
+          format.atom
+          format.rss
+        end
       end
 
       def create

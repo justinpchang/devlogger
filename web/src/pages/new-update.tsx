@@ -1,6 +1,7 @@
 import { Container } from "@/components/Container";
 import { Navbar } from "@/components/Navbar";
 import { UpdateForm } from "@/components/UpdateForm";
+import Head from "next/head";
 
 export default function NewUpdate() {
   // TODO: Add authentication
@@ -8,6 +9,9 @@ export default function NewUpdate() {
 
   return (
     <>
+      <Head>
+        <title>Post a new update</title>
+      </Head>
       <Navbar />
       <Container>
         <UpdateForm />

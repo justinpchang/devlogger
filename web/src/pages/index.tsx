@@ -3,12 +3,29 @@ import { Navbar } from "@/components/Navbar";
 import { Feed } from "@/components/Feed";
 import { UpdateForm } from "@/components/UpdateForm";
 import { useUpdatesForGlobal } from "@/hooks/useUpdatesForGlobal";
+import Head from "next/head";
+import { getLink } from "@/requests/feed.requests";
 
 export default function Home() {
   const { data: updates, isLoading: isUpdatesLoading } = useUpdatesForGlobal();
 
   return (
     <>
+      <Head>
+        <title>inpublic</title>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={`inpublic's global RSS feed`}
+          href={`/api/feeds/${getLink("rss", null)}`}
+        />
+        <link
+          rel="alternate"
+          type="application/atom+xml"
+          title={`inpublic's global Atom feed`}
+          href={`/api/feeds/${getLink("atom", null)}`}
+        />
+      </Head>
       <Navbar />
       <Container>
         <div className="m-10">

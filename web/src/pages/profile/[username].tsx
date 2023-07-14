@@ -13,6 +13,8 @@ import { ProjectList } from "@/components/ProjectList";
 import { useGetProjects } from "@/hooks/useGetProjects";
 import { useCreateSubscription } from "@/hooks/useCreateSubscription";
 import { useDeleteSubscription } from "@/hooks/useDeleteSubscription";
+import Head from "next/head";
+import { getLink } from "@/requests/feed.requests";
 
 const TABS = ["Profile", "Projects", "Updates"] as const;
 
@@ -54,6 +56,21 @@ export default function ProfilePage() {
 
   return (
     <>
+      <Head>
+        <title>{username}</title>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={`${username}'s RSS feed`}
+          href={`/api/feeds/${getLink("rss", { username })}`}
+        />
+        <link
+          rel="alternate"
+          type="application/atom+xml"
+          title={`${username}'s Atom feed`}
+          href={`/api/feeds/${getLink("atom", { username })}`}
+        />
+      </Head>
       <Navbar />
       <Container>
         <div className="flex h-full">
