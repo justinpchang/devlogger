@@ -17,13 +17,13 @@ export default function Home() {
           rel="alternate"
           type="application/rss+xml"
           title={`inpublic's global RSS feed`}
-          href={`/api/feeds/${getLink("rss", null)}`}
+          href={`${getLink("rss", null)}`}
         />
         <link
           rel="alternate"
           type="application/atom+xml"
           title={`inpublic's global Atom feed`}
-          href={`/api/feeds/${getLink("atom", null)}`}
+          href={`${getLink("atom", null)}`}
         />
       </Head>
       <Navbar />

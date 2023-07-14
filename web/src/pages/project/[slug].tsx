@@ -40,13 +40,13 @@ export default function ProjectPage() {
           rel="alternate"
           type="application/rss+xml"
           title={`${project.user.username}/${project.slug}'s RSS feed`}
-          href={`/api/feeds/${getLink("rss", { slug: project.slug })}`}
+          href={`${getLink("rss", { slug: project.slug })}`}
         />
         <link
           rel="alternate"
           type="application/atom+xml"
           title={`${project.user.username}/${project.slug}'s Atom feed`}
-          href={`/api/feeds/${getLink("atom", { slug: project.slug })}`}
+          href={`${getLink("atom", { slug: project.slug })}`}
         />
       </Head>
       <Navbar />

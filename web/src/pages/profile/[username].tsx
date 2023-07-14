@@ -62,13 +62,13 @@ export default function ProfilePage() {
           rel="alternate"
           type="application/rss+xml"
           title={`${username}'s RSS feed`}
-          href={`/api/feeds/${getLink("rss", { username })}`}
+          href={`${getLink("rss", { username })}`}
         />
         <link
           rel="alternate"
           type="application/atom+xml"
           title={`${username}'s Atom feed`}
-          href={`/api/feeds/${getLink("atom", { username })}`}
+          href={`${getLink("atom", { username })}`}
         />
       </Head>
       <Navbar />
