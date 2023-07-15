@@ -39,7 +39,7 @@ function Update({ update }: Props) {
     <div className="w-full">
       <div className="mt-[0.65rem] ml-1 flex gap-x-1">
         <div className="py-0.5 text-xs leading-5 text-gray-500">
-          <Link href={`/profile/${update.user.username}`} className="font-medium text-gray-900">
+          <Link href={`/${update.user.username}`} className="font-medium text-gray-900">
             {update.user.name}
           </Link>{" "}
           posted an update
@@ -54,9 +54,11 @@ function Update({ update }: Props) {
       </div>
       <div className="w-full rounded-md mt-2 p-5 ring-1 ring-inset ring-gray-200 flex flex-col gap-y-2">
         <h2 className="text-sm text-gray-900 flex gap-x-1 font-semibold">
-          <Link href={`/profile/${update.user.username}`}>{update.user.username}</Link>
+          <Link href={`/${update.user.username}`}>{update.user.username}</Link>
           <div className="text-lg -mt-1 font-light">/</div>
-          <Link href={`/project/${update.project.slug}`}>{update.project.name}</Link>
+          <Link href={`/${update.user.username}/${update.project.slug}`}>
+            {update.project.name}
+          </Link>
         </h2>
         <h1 className="text-md text-gray-900 leading-6">{update.title}</h1>
         <div

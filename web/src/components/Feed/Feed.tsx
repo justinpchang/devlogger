@@ -19,7 +19,7 @@ function Feed({ updates, isLoading }: Props) {
             <div className="absolute left-0 top-0 flex w-6 justify-center -bottom-6">
               <div className="w-px bg-gray-200" />
             </div>
-            <Link href={`/profile/${update.user.username}`}>
+            <Link href={`/${update.user.username}`}>
               <Avatar user={update.user} size="xs" className="relative mt-3 w-6 h-6" />
             </Link>
             <Update update={update} />

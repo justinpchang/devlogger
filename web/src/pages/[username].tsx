@@ -186,7 +186,11 @@ export default function ProfilePage() {
                     )}
 
                     {tab === "Projects" && (
-                      <ProjectList projects={projects} isLoading={isProjectsLoading} />
+                      <ProjectList
+                        username={username}
+                        projects={projects}
+                        isLoading={isProjectsLoading}
+                      />
                     )}
 
                     {tab === "Updates" && <Feed updates={updates} isLoading={isUpdatesLoading} />}

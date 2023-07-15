@@ -7,7 +7,8 @@ import { useRouter } from "next/router";
 
 export default function EditProjectPage() {
   const router = useRouter();
-  const slug = router.query.slug as string | undefined;
+  const slug = router.query.slug as string;
+  const username = router.query.username as string;
 
   const { data: project, isLoading } = useGetProject(slug);
 
@@ -15,7 +16,7 @@ export default function EditProjectPage() {
     <>
       <Head>
         <title>
-          Edit {project?.user.username}/{project?.slug}
+          Edit {username}/{slug}
         </title>
       </Head>
       <Navbar />

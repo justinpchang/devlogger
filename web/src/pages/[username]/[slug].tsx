@@ -14,7 +14,8 @@ import { useRouter } from "next/router";
 
 export default function ProjectPage() {
   const router = useRouter();
-  const slug = router.query.slug as string | undefined;
+  const slug = router.query.slug as string;
+  const username = router.query.username as string;
 
   const { data: currentUser } = useCurrentUser();
   const { data: project, isLoading } = useGetProject(slug);
@@ -34,19 +35,19 @@ export default function ProjectPage() {
     <>
       <Head>
         <title>
-          {project.user.username}/{project.slug}
+          {username}/{slug}
         </title>
         <link
           rel="alternate"
           type="application/rss+xml"
-          title={`${project.user.username}/${project.slug}'s RSS feed`}
-          href={`${getLink("rss", { slug: project.slug })}`}
+          title={`${username}/${slug}'s RSS feed`}
+          href={`${getLink("rss", { slug })}`}
         />
         <link
           rel="alternate"
           type="application/atom+xml"
-          title={`${project.user.username}/${project.slug}'s Atom feed`}
-          href={`${getLink("atom", { slug: project.slug })}`}
+          title={`${username}/${slug}'s Atom feed`}
+          href={`${getLink("atom", { slug })}`}
         />
       </Head>
       <Navbar />
@@ -57,10 +58,10 @@ export default function ProjectPage() {
               <li>
                 <div className="flex">
                   <Link
-                    href={`/profile/${project.user.username}`}
+                    href={`/${username}`}
                     className="text-sm font-medium text-gray-500 hover:text-gray-700"
                   >
-                    {project.user.username}
+                    {username}
                   </Link>
                 </div>
               </li>
@@ -85,7 +86,7 @@ export default function ProjectPage() {
               {currentUser?.id === project.user.id && (
                 <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
                   <Link
-                    href={`/project/${project.slug}/edit`}
+                    href={`/${username}/${slug}/edit`}
                     className="inline-flex rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                   >
                     <button type="button" className="inline-flex justify-center gap-x-1.5 w-full">

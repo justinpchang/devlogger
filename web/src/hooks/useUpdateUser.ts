@@ -15,7 +15,7 @@ export function useUpdateUser() {
       // TODO: Consolidate to use single query key
       queryClient.setQueryData([CURRENT_USER_QUERY_KEY], user);
       queryClient.setQueryData(["user", user.username], user);
-      router.push(`/profile/${user.username}`);
+      router.push(`/${user.username}`);
     },
     onError: () => {
       toast.error("Error updating profile. Please try again.");
