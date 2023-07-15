@@ -88,6 +88,7 @@ GEM
       aws_cf_signer
       rest-client (>= 2.0.0)
     concurrent-ruby (1.2.2)
+    connection_pool (2.4.1)
     crass (1.0.6)
     date (3.3.3)
     debug (1.8.0)
@@ -103,6 +104,8 @@ GEM
       devise (~> 4.0)
       warden-jwt_auth (~> 0.8)
     diff-lcs (1.5.0)
+    dockerfile-rails (1.5.1)
+      rails
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.8.1)
@@ -173,6 +176,8 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.2-x86_64-darwin)
       racc (~> 1.4)
+    nokogiri (1.15.2-x86_64-linux)
+      racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.23.0)
     parser (3.2.2.3)
@@ -224,6 +229,10 @@ GEM
       sorbet-runtime (>= 0.5.9204)
       unparser
     rbs (3.1.0)
+    redis (5.0.6)
+      redis-client (>= 0.9.0)
+    redis-client (0.14.1)
+      connection_pool
     regexp_parser (2.8.1)
     reline (0.3.5)
       io-console (~> 0.5)
@@ -270,6 +279,7 @@ GEM
       sorbet-static (= 0.5.10885)
     sorbet-runtime (0.5.10885)
     sorbet-static (0.5.10885-universal-darwin-21)
+    sorbet-static (0.5.10885-x86_64-linux)
     sorbet-static-and-runtime (0.5.10885)
       sorbet (= 0.5.10885)
       sorbet-runtime (= 0.5.10885)
@@ -330,6 +340,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   annotate
@@ -339,6 +350,7 @@ DEPENDENCIES
   debug
   devise (~> 4.9)
   devise-jwt
+  dockerfile-rails (>= 1.5)
   dotenv-rails
   jbuilder
   pg (~> 1.1)
@@ -346,6 +358,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.5)
+  redis (~> 5.0)
   rubocop
   rubocop-rails
   rubocop-rspec
