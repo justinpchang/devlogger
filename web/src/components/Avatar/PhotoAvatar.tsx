@@ -13,7 +13,8 @@ function PhotoAvatar({ src, size, className }: Props) {
       width={size}
       height={size}
       alt="Avatar"
-      className={`h-[${size}px] w-[${size}px] rounded-full ring-1 ring-white ${className}`}
+      style={{ width: size, height: size }}
+      className={`rounded-full ring-1 ring-white ${className}`}
     />
   );
 }
