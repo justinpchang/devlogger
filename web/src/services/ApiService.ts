@@ -50,5 +50,4 @@ export class ApiService {
   };
 }
 
-// TODO: Update with environment variable
-export const apiService = new ApiService("http://localhost:3000/api/v1");
+export const apiService = new ApiService(process.env.NEXT_PUBLIC_API_BASE_URL! + "/api/v1");

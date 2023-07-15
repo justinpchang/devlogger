@@ -1,13 +1,12 @@
 import { AxiosResponse } from "axios";
-import { ApiService, JWT_COOKIE_NAME, apiService } from "./ApiService";
+import { ApiService, JWT_COOKIE_NAME } from "./ApiService";
 import Cookies from "js-cookie";
 
 export class AuthService {
   protected readonly authApiService: ApiService;
 
   public constructor() {
-    // TODO: Update with environment variable
-    this.authApiService = new ApiService("http://localhost:3000");
+    this.authApiService = new ApiService(process.env.NEXT_PUBLIC_API_BASE_URL!);
   }
 
   public signup = async ({ email, password }: { email: string; password: string }) => {
