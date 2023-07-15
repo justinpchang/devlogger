@@ -15,7 +15,7 @@ module Api
           if params[:user_username]
             # User feed
             @title = "#{params[:user_username]}'s inpublic feed"
-            @url = "https://inpublic.dev/profile/#{params[:user_username]}?tab=Updates"
+            @url = "https://inpublic.dev/#{params[:user_username]}?tab=Updates"
             @updates.where(projects: { user: User.find_by(username: params[:user_username]) })
           elsif params[:project_slug]
             # Project feed

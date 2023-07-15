@@ -68,10 +68,10 @@ function Navbar() {
                       Feed
                     </Link>
                     <Link
-                      href={`/profile/${currentUser.username}?tab=Projects`}
+                      href={`/${currentUser.username}?tab=Projects`}
                       className={classNames(
                         "inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900",
-                        router.pathname === "/profile/[username]" &&
+                        router.pathname === "/[username]" &&
                           router.query.username === currentUser.username &&
                           router.query.tab === "Projects"
                           ? "border-teal-500"
@@ -127,7 +127,7 @@ function Navbar() {
                           <Menu.Item>
                             {({ active }) => (
                               <Link
-                                href={`/profile/${currentUser.username}`}
+                                href={`/${currentUser.username}`}
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
@@ -214,7 +214,7 @@ function Navbar() {
                   <div className="mt-3 space-y-1">
                     <Disclosure.Button
                       as={Link}
-                      href={`/profile/${currentUser.username}`}
+                      href={`/${currentUser.username}`}
                       className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
                     >
                       Your Profile
