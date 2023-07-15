@@ -3,9 +3,11 @@ import { Project } from "@/types/project.types";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
 import { useMutation, useQueryClient } from "react-query";
+import { useCurrentUser } from "./useCurrentUser";
 
 export function useCreateProject() {
   const router = useRouter();
+  const { data: currentUser } = useCurrentUser();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -14,7 +16,7 @@ export function useCreateProject() {
       onSuccess: (project: Project) => {
         toast.success("Project created successfully");
         queryClient.setQueryData(["project", project.slug], project);
-        router.push(`/projects/${project.slug}`);
+        router.push(`/${currentUser!.username}/${project.slug}`);
       },
       onError: () => {
         toast.error("Error creating project. Please try again.");

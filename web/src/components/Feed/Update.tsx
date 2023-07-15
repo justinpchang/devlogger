@@ -56,7 +56,9 @@ function Update({ update }: Props) {
         <h2 className="text-sm text-gray-900 flex gap-x-1 font-semibold">
           <Link href={`/${update.user.username}`}>{update.user.username}</Link>
           <div className="text-lg -mt-1 font-light">/</div>
-          <Link href={`/project/${update.project.slug}`}>{update.project.name}</Link>
+          <Link href={`/${update.user.username}/${update.project.slug}`}>
+            {update.project.name}
+          </Link>
         </h2>
         <h1 className="text-md text-gray-900 leading-6">{update.title}</h1>
         <div

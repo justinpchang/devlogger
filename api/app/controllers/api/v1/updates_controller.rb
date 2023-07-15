@@ -19,8 +19,9 @@ module Api
             @updates.where(projects: { user: User.find_by(username: params[:user_username]) })
           elsif params[:project_slug]
             # Project feed
+            set_project!
             @title = "#{params[:project_slug]}'s inpublic feed"
-            @url = "https://inpublic.dev/projects/#{params[:project_slug]}"
+            @url = "https://inpublic.dev/#{@project.user.username}/#{params[:project_slug]}"
             @updates.where(projects: { slug: params[:project_slug] })
           else
             # Global feed

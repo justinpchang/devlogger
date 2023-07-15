@@ -17,8 +17,6 @@ export default function ProjectPage() {
   const slug = router.query.slug as string;
   const username = router.query.username as string;
 
-  console.log(router.query);
-
   const { data: currentUser } = useCurrentUser();
   const { data: project, isLoading } = useGetProject(slug);
   const { data: updates, isLoading: isUpdatesLoading } = useGetUpdatesForProject(slug);
@@ -88,7 +86,7 @@ export default function ProjectPage() {
               {currentUser?.id === project.user.id && (
                 <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
                   <Link
-                    href={`/project/${project.slug}/edit`}
+                    href={`/${username}/${slug}/edit`}
                     className="inline-flex rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                   >
                     <button type="button" className="inline-flex justify-center gap-x-1.5 w-full">
