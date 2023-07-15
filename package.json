@@ -12,7 +12,9 @@
     "build": "cd web && next build",
     "start": "cd web && next start",
     "lint": "cd web && next lint",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "fly-console": "cd api && fly ssh console --pty -C \"/rails/bin/rails console\"",
+    "fly-logs": "cd api && fly logs -a inpublic-api"
   },
   "author": "",
   "license": "ISC",
