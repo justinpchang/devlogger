@@ -62,8 +62,8 @@ function GradientAvatar({ name, size, className }: Props) {
             y2={size}
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color={c1} />
-            <stop offset="1" stop-color={c2} />
+            <stop stopColor={c1} />
+            <stop offset="1" stopColor={c2} />
           </linearGradient>
         </defs>
       </svg>
