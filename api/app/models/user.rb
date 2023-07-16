@@ -50,6 +50,25 @@ class User < ApplicationRecord
   has_many :upvotes, dependent: :destroy
   has_many :upvoted_updates, through: :upvotes, source: :update
 
-  validates :username, presence: true, uniqueness: { case_sensitive: false }
-  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, presence: true, length: { minimum: 3 }
+  validates :username,
+            presence: true,
+            format: {
+              with: /\A[A-Z0-9]+\z/i,
+            },
+            uniqueness: {
+              case_sensitive: false,
+            },
+            length: {
+              minimum: 3,
+              maximum: 20,
+            }
+  validates :email,
+            presence: true,
+            uniqueness: {
+              case_sensitive: false,
+            },
+            format: {
+              with: URI::MailTo::EMAIL_REGEXP,
+            }
 end

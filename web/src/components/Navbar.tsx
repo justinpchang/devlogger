@@ -3,14 +3,11 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import { useMutation, useQueryClient } from "react-query";
 import { useRouter } from "next/router";
-import { CURRENT_USER_QUERY_KEY, useCurrentUser } from "@/hooks/useCurrentUser";
-import { authService } from "@/services/AuthService";
-import toast from "react-hot-toast";
-import { GradientAvatar } from "./Avatar/GradientAvatar";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { Avatar } from "./Avatar";
 import { Logo } from "./Logo";
+import { useSignOut } from "@/hooks/useSignOut";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -18,19 +15,9 @@ function classNames(...classes: string[]) {
 
 function Navbar() {
   const { data: currentUser } = useCurrentUser();
-  const queryClient = useQueryClient();
   const router = useRouter();
 
-  const { mutate: logout } = useMutation(() => authService.logout(), {
-    onSuccess: () => {
-      toast.success("Signed out successfully");
-      queryClient.setQueryData(CURRENT_USER_QUERY_KEY, null);
-      window.location.href = "/";
-    },
-    onError: () => {
-      toast.error("Something went wrong. Please try again");
-    },
-  });
+  const { mutate: signOut } = useSignOut();
 
   return (
     <Disclosure as="nav" className="bg-white shadow">
@@ -152,7 +139,7 @@ function Navbar() {
                           </Menu.Item>
                           <Menu.Item>
                             <button
-                              onClick={() => logout()}
+                              onClick={() => signOut()}
                               className="block px-4 py-2 text-sm text-gray-700"
                             >
                               Sign out
@@ -229,7 +216,7 @@ function Navbar() {
                     <Disclosure.Button
                       as={Link}
                       href="#"
-                      onClick={() => logout()}
+                      onClick={() => signOut()}
                       className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
                     >
                       Sign out

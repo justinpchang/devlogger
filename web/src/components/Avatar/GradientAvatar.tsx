@@ -36,6 +36,8 @@ function blendColors(c1: string, c2: string) {
 }
 
 function GradientAvatar({ name, size, className }: Props) {
+  if (!name) return null;
+
   const [c1, c2] = generateColors(name);
   const midpoint = blendColors(c1, c2);
   const fontColor = fontColorContrast(midpoint);

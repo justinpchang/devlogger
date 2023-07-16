@@ -30,6 +30,11 @@ module Api
         render partial: 'users/user', locals: { user: current_user }
       end
 
+      def check_username
+        username = params.require(:username)
+        render json: { available: !User.exists?(username: username) }
+      end
+
       private
 
       def set_user!
