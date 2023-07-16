@@ -36,6 +36,8 @@ function blendColors(c1: string, c2: string) {
 }
 
 function GradientAvatar({ name, size, className }: Props) {
+  if (!name) return null;
+
   const [c1, c2] = generateColors(name);
   const midpoint = blendColors(c1, c2);
   const fontColor = fontColorContrast(midpoint);
@@ -60,8 +62,8 @@ function GradientAvatar({ name, size, className }: Props) {
             y2={size}
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color={c1} />
-            <stop offset="1" stop-color={c2} />
+            <stop stopColor={c1} />
+            <stop offset="1" stopColor={c2} />
           </linearGradient>
         </defs>
       </svg>

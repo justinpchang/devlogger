@@ -9,14 +9,30 @@ export class AuthService {
     this.authApiService = new ApiService(process.env.NEXT_PUBLIC_API_BASE_URL!);
   }
 
-  public signup = async ({ email, password }: { email: string; password: string }) => {
+  public signup = async ({
+    name,
+    username,
+    email,
+    password,
+  }: {
+    name: string;
+    username: string;
+    email: string;
+    password: string;
+  }) => {
     const response = await this.authApiService.instance.post("/users", {
       user: {
+        name,
+        username,
         email,
         password,
       },
     });
-    this.setJWT(response);
+    if (response.data.success) {
+      this.setJWT(response);
+      return;
+    }
+    throw new Error(response.data.errors);
   };
 
   public login = async ({ email, password }: { email: string; password: string }) => {

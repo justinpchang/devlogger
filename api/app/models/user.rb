@@ -27,6 +27,7 @@
 #
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_username              (username) UNIQUE
 #
 class User < ApplicationRecord
   include Subscribable
@@ -48,4 +49,26 @@ class User < ApplicationRecord
   has_many :updates, through: :projects
   has_many :upvotes, dependent: :destroy
   has_many :upvoted_updates, through: :upvotes, source: :update
+
+  validates :name, presence: true, length: { minimum: 3 }
+  validates :username,
+            presence: true,
+            format: {
+              with: /\A[A-Z0-9]+\z/i,
+            },
+            uniqueness: {
+              case_sensitive: false,
+            },
+            length: {
+              minimum: 3,
+              maximum: 20,
+            }
+  validates :email,
+            presence: true,
+            uniqueness: {
+              case_sensitive: false,
+            },
+            format: {
+              with: URI::MailTo::EMAIL_REGEXP,
+            }
 end

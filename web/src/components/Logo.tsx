@@ -1,8 +1,9 @@
 interface Props {
   size: number;
+  className?: string;
 }
 
-function Logo({ size }: Props) {
+function Logo({ size, className }: Props) {
   return (
     <svg
       width={size}
@@ -10,6 +11,7 @@ function Logo({ size }: Props) {
       viewBox="0 0 40 40"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <path
         d="M15 6C15 4.89543 15.8954 4 17 4H31C32.1046 4 33 4.89543 33 6V12C33 13.1046 32.1046 14 31 14H17C15.8954 14 15 13.1046 15 12V6Z"

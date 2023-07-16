@@ -26,3 +26,9 @@ export const uploadAvatar = async (file: File): Promise<User> => {
   });
   return response.data;
 };
+
+export const checkUsernameAvailability = async (username: string): Promise<boolean> => {
+  if (!username) return false;
+  const response = await apiService.instance.post(`/users/check_username`, { username });
+  return response.data.available;
+};
