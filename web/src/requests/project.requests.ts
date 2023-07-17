@@ -15,7 +15,7 @@ export const createProject = async (
   data: Pick<Project, "name" | "slug" | "homepage" | "description">
 ): Promise<Project> => {
   const response = await apiService.instance.post("/projects", data);
-  return response.data.project;
+  return response.data;
 };
 
 export const updateProject = async (
