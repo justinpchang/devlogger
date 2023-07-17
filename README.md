@@ -1,24 +1,34 @@
-# README
+# inpublic
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## https://inpublic.dev
 
-Things you may want to cover:
+### Project-centric blogging, built for fast and informal updates that keep you accountable
 
-* Ruby version
+Follow development on [inpublic](https://inpublic.dev/justinpchang/inpublic).
 
-* System dependencies
+Please log all bugs and feature requests as [GitHub issues](https://github.com/justinpchang/inpublic/issues).
 
-* Configuration
+### Tech
 
-* Database creation
+- Backend
+  - Code in `api` directory
+  - Ruby on Rails 7 app
+  - Deployed on Fly.io via Github Actions
+  - Storage with PostgreSQL 14
+- Frontend
+  - Code in `web` directory
+  - Next.js app (no api pages)
+  - Deployed on Vercel via Github hooks
 
-* Database initialization
+### Local development
 
-* How to run the test suite
+A Procfile is defined at the root directory to facillitate local development.
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+cd api
+bundle
+cd ../web
+yarn
+cd ..
+foreman start
+```
