@@ -50,7 +50,7 @@ class User < ApplicationRecord
   has_many :upvotes, dependent: :destroy
   has_many :upvoted_updates, through: :upvotes, source: :update
 
-  validates :name, presence: true, length: { minimum: 3 }
+  validates :name, presence: true, length: { minimum: 1 }
   validates :username,
             presence: true,
             format: {

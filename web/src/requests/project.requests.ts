@@ -24,3 +24,9 @@ export const updateProject = async (
   const response = await apiService.instance.patch(`/projects/${data.slug}`, data);
   return response.data;
 };
+
+export const checkProjectSlugAvailability = async (slug: string): Promise<boolean> => {
+  if (!slug) return false;
+  const response = await apiService.instance.post(`/projects/check_slug`, { slug });
+  return response.data.available;
+};

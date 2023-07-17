@@ -19,12 +19,19 @@ module Api
 
       def create
         project =
-          current_user.projects.create!(
+          current_user.projects.create(
             name: params[:name],
             slug: params[:slug],
             homepage: params[:homepage],
             description: params[:description],
           )
+
+        unless project.persisted?
+          return(
+            render json: { error: project.errors.full_messages.to_sentence.humanize }, status: 400
+          )
+        end
+
         render partial: 'projects/project_with_user', locals: { project: project }
       end
 
@@ -38,6 +45,11 @@ module Api
           description: project['description'],
         )
         render partial: 'projects/project_with_user', locals: { project: @project }
+      end
+
+      def check_slug
+        slug = params.require(:slug)
+        render json: { available: !Project.exists?(slug: slug) }
       end
 
       private

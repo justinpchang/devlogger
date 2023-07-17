@@ -25,6 +25,7 @@ Rails.application.routes.draw do
         resources :subscriptions, only: %i[create] do
           delete '/', to: 'subscriptions#destroy', on: :collection
         end
+        post 'check_slug', on: :collection
       end
       resources :updates, only: [:index] do
         resources :upvotes, only: %i[create] do

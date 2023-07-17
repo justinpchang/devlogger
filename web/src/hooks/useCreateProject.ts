@@ -19,7 +19,7 @@ export function useCreateProject() {
         router.push(`/${currentUser!.username}/${project.slug}`);
       },
       onError: () => {
-        toast.error("Error creating project. Please try again.");
+        toast.error("Error creating project.");
       },
     }
   );

@@ -30,6 +30,14 @@ class Project < ApplicationRecord
   belongs_to :user
   has_many :updates, dependent: :destroy
 
-  validates :name, presence: true, uniqueness: true
-  validates :slug, presence: true, uniqueness: true
+  validates :name, presence: true
+  validates :slug,
+            presence: true,
+            uniqueness: {
+              case_sensitive: false,
+            },
+            length: {
+              minimum: 3,
+              maximum: 40,
+            }
 end

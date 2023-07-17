@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import parameterize from "parameterize";
 import { useRouter } from "next/router";
 import { useCreateProject } from "@/hooks/useCreateProject";
 import { Project } from "@/types/project.types";
 import { useUpdateProject } from "@/hooks/useUpdateProject";
+import { checkProjectSlugAvailability } from "@/requests/project.requests";
+import debounce from "lodash.debounce";
 
 interface Props {
   // Omitted if creating a new project
@@ -13,6 +15,7 @@ interface Props {
 function ProjectForm({ editingProject }: Props) {
   const [name, setName] = useState(editingProject?.name ?? "");
   const [slug, setSlug] = useState(editingProject?.slug ?? "");
+  const [isSlugAvailable, setIsSlugAvailable] = useState(true);
   const [homepage, setHomepage] = useState(editingProject?.homepage ?? "");
   const [description, setDescription] = useState(editingProject?.description ?? "");
 
@@ -22,17 +25,27 @@ function ProjectForm({ editingProject }: Props) {
   const submit = editingProject ? updateProject : createProject;
   const isSubmitting = editingProject ? isUpdateSubmitting : isCreateSubmitting;
 
+  const checkSlug = async (slug: string) => {
+    const isAvailable = await checkProjectSlugAvailability(slug);
+    setIsSlugAvailable(isAvailable);
+  };
+  const debouncedCheckSlug = useCallback(debounce(checkSlug, 300), []);
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+    if (!editingProject) {
+      const slug = parameterize(e.target.value);
+      setSlug(slug);
+      debouncedCheckSlug(slug);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     submit({ name, slug, homepage, description });
   };
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-    if (!editingProject) setSlug(parameterize(e.target.value));
-  };
-
-  const isValid = name && slug;
+  const isValid = name && slug && isSlugAvailable;
 
   return (
     <form onSubmit={handleSubmit} className="my-12">
@@ -56,12 +69,17 @@ function ProjectForm({ editingProject }: Props) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="project-name"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-900 "
               >
                 Project name *
               </label>
               <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-teal-600 sm:max-w-md">
+                <div
+                  className={
+                    "flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-teal-600 sm:max-w-md " +
+                    (isSlugAvailable ? "" : "ring-red-500 focus-within:ring-red-500")
+                  }
+                >
                   <input
                     type="text"
                     name="project-name"
@@ -74,6 +92,9 @@ function ProjectForm({ editingProject }: Props) {
                   />
                 </div>
               </div>
+              {!isSlugAvailable && (
+                <p className="mt-2 text-sm text-red-500">This project name/slug is already taken</p>
+              )}
             </div>
           </div>
 
